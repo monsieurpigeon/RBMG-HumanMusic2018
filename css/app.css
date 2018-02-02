@@ -1,0 +1,9 @@
+body {
+    background: grey;
+}
+
+#content {
+    width: 1024px;
+    display: block;
+    margin: auto;
+}

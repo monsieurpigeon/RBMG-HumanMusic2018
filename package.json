@@ -1,0 +1,26 @@
+{
+  "name": "hm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monsieurpigeon/RBMG-HumanMusic2018.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/monsieurpigeon/RBMG-HumanMusic2018/issues"
+  },
+  "homepage": "https://github.com/monsieurpigeon/RBMG-HumanMusic2018#readme",
+  "dependencies": {
+    "@types/lodash": "^4.14.100",
+    "phaser-ce": "^2.10.0"
+  }
+}

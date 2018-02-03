@@ -48,9 +48,16 @@ var HumanMusic;
 var HumanMusic;
 (function (HumanMusic) {
     var Jukebox = /** @class */ (function () {
-        function Jukebox(game) {
-            console.log("The jukebox is still alive");
+        function Jukebox(game, mainLayer) {
+            this._game = game;
+            this._mainLayer = mainLayer;
+            this._timer = game.time.create(false);
+            this._timer.loop(50, this.tictac, this);
+            this._timer.start(50);
         }
+        Jukebox.prototype.tictac = function () {
+            this._mainLayer._pads.alpha = this._game.rnd.between(0, 100) / 100;
+        };
         return Jukebox;
     }());
     HumanMusic.Jukebox = Jukebox;
@@ -62,8 +69,33 @@ var HumanMusic;
         function MainLayer(game, parent) {
             var _this = _super.call(this, game, parent) || this;
             _this._pads = new Phaser.Group(game, _this);
+            _this._controls = new Phaser.Group(game, _this);
+            _this.generatePads();
+            _this.generateControls();
             return _this;
         }
+        MainLayer.prototype.generatePads = function () {
+            var _loop_1 = function (i) {
+                var button_1 = this_1.game.add.button(10, 50 * i, 'DebugButton', function () {
+                    console.log("hello" + i);
+                });
+                this_1._pads.add(button_1);
+            };
+            var this_1 = this;
+            for (var i = 0; i < 16; i++) {
+                _loop_1(i);
+            }
+            var button = this.game.add.button(100, 500, 'DebugButton', function () {
+                console.log("hello");
+            });
+            this.add(button);
+        };
+        MainLayer.prototype.generateControls = function () {
+            var button = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2, 'DebugButton', function () {
+                console.log("PLAY");
+            });
+            this.add(button);
+        };
         Object.defineProperty(MainLayer.prototype, "pads", {
             get: function () {
                 return this._pads;
@@ -127,13 +159,9 @@ var HumanMusic;
             return _super !== null && _super.apply(this, arguments) || this;
         }
         Play.prototype.create = function () {
-            this.time = new Phaser.Time(this.game);
             this.stage.backgroundColor = 0xA0DA6F;
             this._mainLayer = new HumanMusic.MainLayer(this.game, this.world);
-            this._jukebox = new HumanMusic.Jukebox(this.game);
-            this.timer = this.game.time.create(false);
-            this.timer.loop(1000, this.tictac, this);
-            this.timer.start(500);
+            this._jukebox = new HumanMusic.Jukebox(this.game, this._mainLayer);
         };
         Play.prototype.update = function () {
         };

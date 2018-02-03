@@ -41,8 +41,6 @@ namespace HumanMusic {
             this._soundArray[2] = this.game.add.audio('hihat');
             this._soundArray[3] = this.game.add.audio('bell');
             this._soundArray[4] = this.game.add.audio('yeah');
-
-            this._soundArray[4].play();
         }
 
         private initPushedPads() {

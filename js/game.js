@@ -47,12 +47,60 @@ var HumanMusic;
 })(HumanMusic || (HumanMusic = {}));
 var HumanMusic;
 (function (HumanMusic) {
+    var Preferences = /** @class */ (function () {
+        function Preferences() {
+            this.score = [50, -1, -1, -1, -1];
+        }
+        Object.defineProperty(Preferences, "instance", {
+            get: function () {
+                if (Preferences._instance === null) {
+                    Preferences._instance = new Preferences();
+                }
+                return Preferences._instance;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Preferences._instance = null;
+        return Preferences;
+    }());
+    HumanMusic.Preferences = Preferences;
+})(HumanMusic || (HumanMusic = {}));
+var HumanMusic;
+(function (HumanMusic) {
     var Jukebox = /** @class */ (function () {
         function Jukebox(game, mainLayer) {
         }
         return Jukebox;
     }());
     HumanMusic.Jukebox = Jukebox;
+})(HumanMusic || (HumanMusic = {}));
+var HumanMusic;
+(function (HumanMusic) {
+    var Elements = /** @class */ (function () {
+        function Elements() {
+        }
+        Elements.LIST = [
+            {
+                name: "Fire",
+                track: [
+                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+                ],
+                introduction: "Bonjour"
+            },
+            {
+                name: "Earth",
+                track: [[true, true]],
+                introduction: "Salut"
+            }
+        ];
+        return Elements;
+    }());
+    HumanMusic.Elements = Elements;
 })(HumanMusic || (HumanMusic = {}));
 var HumanMusic;
 (function (HumanMusic) {
@@ -80,7 +128,6 @@ var HumanMusic;
             this._soundArray[2] = this.game.add.audio('hihat');
             this._soundArray[3] = this.game.add.audio('bell');
             this._soundArray[4] = this.game.add.audio('yeah');
-            this._soundArray[4].play();
         };
         MainLayer.prototype.initPushedPads = function () {
             this._pushedPads = [];
@@ -216,7 +263,7 @@ var HumanMusic;
         };
         Menu.prototype.createTracksButtons = function () {
             var start = this.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2, "DebugButton", function () {
-                this.game.state.start("Play");
+                this.game.state.start("Play", false, false, 0);
             }, this);
             start.anchor.set(0.5, 0.5);
         };
@@ -231,6 +278,11 @@ var HumanMusic;
         function Play() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        Play.prototype.init = function (index) {
+            console.log(index);
+            console.log(HumanMusic.Preferences.instance.score[index]);
+            console.log(HumanMusic.Elements.LIST[index]);
+        };
         Play.prototype.create = function () {
             this.stage.backgroundColor = 0x222222;
             this._mainLayer = new HumanMusic.MainLayer(this.game, this.world);

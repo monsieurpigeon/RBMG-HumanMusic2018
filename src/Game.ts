@@ -11,7 +11,6 @@ namespace HumanMusic {
             this.state.add("Start", Start);
             this.state.add("Menu", Menu);
             this.state.add("Play", Play);
-            this.state.add("Winner", Winner);
 
             // start
             this.state.start("Boot");

@@ -35,7 +35,6 @@ namespace HumanMusic {
             this._track = track;
             this._element = Elements.LIST[track];
             this._level = Preferences.instance.score[track];
-            console.log('track: ', track);
 
             this._pads = [];
             this._tempo = [];
@@ -56,14 +55,16 @@ namespace HumanMusic {
             if (this._level > 0) {
                 this.populateTrack();
             }
-            this._remainText = this.game.add.text(3 * Global.GAME_WIDTH / 4 , Global.GAME_HEIGHT / 12,
-                "Remains: " + this._remains, null);
-            this._remainText.anchor.set(0.5, 0.5);
-            this._remainText.fill = '#00FFFF';
-            this._scoreText = this.game.add.text(1 * Global.GAME_WIDTH / 4 , Global.GAME_HEIGHT / 12,
+            this._scoreText = this.game.add.text(100 , Global.GAME_HEIGHT / 12,
                 "Score: " + this._score, null);
-            this._scoreText.anchor.set(0.5, 0.5);
+            this._scoreText.anchor.set(0, 0.5);
             this._scoreText.fill = '#00FFFF';
+
+            this._remainText = this.game.add.text(1024 - 100 , Global.GAME_HEIGHT / 12,
+                "Remains: " + this._remains, null);
+            this._remainText.anchor.set(1, 0.5);
+            this._remainText.fill = '#00FFFF';
+
             this.initBonusEmitter();
         }
 
@@ -110,7 +111,6 @@ namespace HumanMusic {
 
         private eraseTrack() {
             let dice = this.game.rnd.between(0, 3);
-            console.log('dice:', dice);
 
             for (let i = 0; i < this._levelInstruments[this._level] - 1; i++) {
                 for (let j = dice * 4; j < ( dice + 1 ) * 4; j++) {
@@ -139,7 +139,6 @@ namespace HumanMusic {
                     this._pushedPads[i][j] = false;
                 }
             }
-            console.log(this._pushedPads);
         }
 
         private pushPad(instrument: number, tempo: number) {
@@ -160,7 +159,7 @@ namespace HumanMusic {
 
         private generateTempo() {
             for (let i = 0; i < 16; i++) {
-                let tempo = this.game.add.sprite(51 * i + 125 + 2 * Math.ceil((i+1) / 4), 400, 'Tempo', 1);
+                let tempo = this.game.add.sprite(51 * i + 125 + 2 * Math.ceil(( i + 1 ) / 4), 400, 'Tempo', 1);
                 tempo.anchor.set(0.5, 0.5);
                 this._tempo[i] = tempo;
             }
@@ -213,15 +212,15 @@ namespace HumanMusic {
         private correctInputs(index: number) {
             if (this.tuto === true) {
                 if (this._pushedPads[index][this._current] === this._element.track[index][this._current]) {
-                    this._pads[index][this._current].setFrames(4,4,4);
                     // Bonus Emitter
-                    if (this._pads[index][this._current].inputEnabled === true) {
+                    if (this._pads[index][this._current].frame == 3) {
                         this._bonusEmitter.emitX = this._pads[index][this._current].x;
                         this._bonusEmitter.emitY = this._pads[index][this._current].y;
                         this._bonusEmitter.setXSpeed(-20, 20);
                         this._bonusEmitter.setYSpeed(0, 20);
                         this._bonusEmitter.emitParticle();
                         this._pads[index][this._current].inputEnabled = false;
+                        this._pads[index][this._current].setFrames(4,4,4);
                         this._score += 2;
                     }
                 } else {
@@ -330,6 +329,9 @@ namespace HumanMusic {
                     if (this._element.track[i][this._current]) {
                         this._soundArray[i].play();
                     }
+                    if (this._pushedPads[i][this._current]) {
+                        this.correctInputs(i);
+                    }
                 }
             }
         }
@@ -352,7 +354,6 @@ namespace HumanMusic {
             this._timer.start();
             this._mode = tempoMode.PRENEXT;
             this._beginListenCount = 0;
-            console.log("PRENEXT");
         }
 
         private launchNext() {
@@ -382,7 +383,6 @@ namespace HumanMusic {
             // Lock all buttons
             // Correct all buttons
             this.correctAndLockAllEntries();
-            console.log("VICTORY");
         }
 
         private correctAndLockAllEntries() {

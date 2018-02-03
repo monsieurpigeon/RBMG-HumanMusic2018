@@ -80,7 +80,7 @@ namespace HumanMusic {
 
         private generateTempo() {
             for (let i = 0; i < 16; i++) {
-                let tempo = this.game.add.sprite(51 * i + 100 + 2 * Math.ceil((i+1) / 4), 400, 'Tempo', 1);
+                let tempo = this.game.add.sprite(51 * i + 125 + 2 * Math.ceil((i+1) / 4), 400, 'Tempo', 1);
                 tempo.anchor.set(0.5, 0.5);
                 this._tempo[i] = tempo;
             }
@@ -91,7 +91,7 @@ namespace HumanMusic {
             for (let i = 0; i < 4; i++) {
                 this._pads[i] = [];
                 for (let j = 0; j < 16; j++) {
-                    let button = this.game.add.button(51 * j + 100 + 2 * Math.ceil((j+1) / 4), 349 - 52 * i, 'Pad',function() {
+                    let button = this.game.add.button(51 * j + 125 + 2 * Math.ceil((j+1) / 4), 349 - 52 * i, 'Pad',function() {
                         scope.pushPad(i, j);
                     }, this, 1, 0, 2);
                     button.anchor.set(0.5, 0.5);
@@ -110,6 +110,7 @@ namespace HumanMusic {
         }
 
         private preLaunchListen() {
+            this._beginListenCount = 0;
             this._mode = tempoMode.WAIT;
             this._controls['listen'].frame = 1;
             this._controls['listen'].inputEnabled = false;
@@ -124,7 +125,6 @@ namespace HumanMusic {
         }
 
         private stopListen() {
-            this._beginListenCount = 0;
             this._controls['listen'].frame = 0;
             this._controls['listen'].inputEnabled = true;
             this._mode = tempoMode.PLAY;

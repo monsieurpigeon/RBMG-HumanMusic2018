@@ -10,6 +10,7 @@ namespace HumanMusic {
             this.load.spritesheet('Tempo', 'assets/tempo.png', 50, 5);
             this.load.spritesheet('Pad', 'assets/pad.png', 50, 50);
             this.load.spritesheet('Listen', 'assets/listen.png', 200, 50);
+            this.load.spritesheet('Start', 'assets/start.png', 200, 100);
 
             // Sounds
             this.load.audio('kick', 'assets/kick.wav');

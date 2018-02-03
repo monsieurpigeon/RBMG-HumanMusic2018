@@ -161,7 +161,7 @@ var HumanMusic;
         };
         MainLayer.prototype.generateTempo = function () {
             for (var i = 0; i < 16; i++) {
-                var tempo = this.game.add.sprite(51 * i + 100 + 2 * Math.ceil((i + 1) / 4), 400, 'Tempo', 1);
+                var tempo = this.game.add.sprite(51 * i + 125 + 2 * Math.ceil((i + 1) / 4), 400, 'Tempo', 1);
                 tempo.anchor.set(0.5, 0.5);
                 this._tempo[i] = tempo;
             }
@@ -171,7 +171,7 @@ var HumanMusic;
             var _loop_1 = function (i) {
                 this_1._pads[i] = [];
                 var _loop_2 = function (j) {
-                    var button = this_1.game.add.button(51 * j + 100 + 2 * Math.ceil((j + 1) / 4), 349 - 52 * i, 'Pad', function () {
+                    var button = this_1.game.add.button(51 * j + 125 + 2 * Math.ceil((j + 1) / 4), 349 - 52 * i, 'Pad', function () {
                         scope.pushPad(i, j);
                     }, this_1, 1, 0, 2);
                     button.anchor.set(0.5, 0.5);
@@ -194,6 +194,7 @@ var HumanMusic;
             this._controls['listen'] = button;
         };
         MainLayer.prototype.preLaunchListen = function () {
+            this._beginListenCount = 0;
             this._mode = 2 /* WAIT */;
             this._controls['listen'].frame = 1;
             this._controls['listen'].inputEnabled = false;
@@ -206,7 +207,6 @@ var HumanMusic;
             this._mode = 0 /* LISTEN */;
         };
         MainLayer.prototype.stopListen = function () {
-            this._beginListenCount = 0;
             this._controls['listen'].frame = 0;
             this._controls['listen'].inputEnabled = true;
             this._mode = 1 /* PLAY */;
@@ -383,6 +383,7 @@ var HumanMusic;
             this.load.spritesheet('Tempo', 'assets/tempo.png', 50, 5);
             this.load.spritesheet('Pad', 'assets/pad.png', 50, 50);
             this.load.spritesheet('Listen', 'assets/listen.png', 200, 50);
+            this.load.spritesheet('Start', 'assets/start.png', 200, 100);
             // Sounds
             this.load.audio('kick', 'assets/kick.wav');
             this.load.audio('snare', 'assets/snare.wav');
@@ -423,9 +424,9 @@ var HumanMusic;
             disclaimer.fill = '#00FFFF';
         };
         Start.prototype.createStartButton = function () {
-            var start = this.add.button(HumanMusic.Global.GAME_WIDTH / 2, 3 * HumanMusic.Global.GAME_HEIGHT / 4, "DebugButton", function () {
+            var start = this.add.button(HumanMusic.Global.GAME_WIDTH / 2, 3 * HumanMusic.Global.GAME_HEIGHT / 4, "Start", function () {
                 this.game.state.start("Menu");
-            }, this);
+            }, this, 1, 0, 2);
             start.anchor.set(0.5, 0.5);
         };
         return Start;

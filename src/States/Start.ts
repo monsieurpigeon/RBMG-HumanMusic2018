@@ -15,9 +15,9 @@ namespace HumanMusic {
 
         private createStartButton() {
             let start = this.add.button(Global.GAME_WIDTH / 2 , 3 * Global.GAME_HEIGHT / 4,
-                "DebugButton", function() {
+                "Start", function() {
                 this.game.state.start("Menu");
-            }, this);
+            }, this, 1, 0, 2);
             start.anchor.set(0.5, 0.5);
         }
 

@@ -50,7 +50,7 @@ var HumanMusic;
 (function (HumanMusic) {
     var Preferences = /** @class */ (function () {
         function Preferences() {
-            this.score = [50, -1, -1, -1, -1];
+            this.score = [0, -1, -1, -1, -1];
         }
         Object.defineProperty(Preferences, "instance", {
             get: function () {
@@ -110,8 +110,11 @@ var HumanMusic;
         __extends(MainLayer, _super);
         function MainLayer(game, parent, element, level) {
             var _this = _super.call(this, game, parent) || this;
+            _this.tuto = true;
+            _this._levelInstruments = [2, 3, 4];
             _this._element = element;
             _this._level = level;
+            console.log(level);
             _this._pads = [];
             _this._tempo = [];
             _this._controls = [];
@@ -137,7 +140,7 @@ var HumanMusic;
         };
         MainLayer.prototype.initPushedPads = function () {
             this._pushedPads = [];
-            for (var i = 0; i < 4; i++) {
+            for (var i = 0; i < this._levelInstruments[this._level]; i++) {
                 this._pushedPads[i] = [];
                 for (var j = 0; j < 16; j++) {
                     this._pushedPads[i][j] = false;
@@ -156,7 +159,7 @@ var HumanMusic;
         };
         MainLayer.prototype.createTimer = function () {
             this._timer = this.game.time.create(false);
-            this._timer.loop(100, this.tick, this);
+            this._timer.loop(200, this.tick, this);
             this._timer.start(50);
         };
         MainLayer.prototype.generateTempo = function () {
@@ -182,7 +185,7 @@ var HumanMusic;
                 }
             };
             var this_1 = this;
-            for (var i = 0; i < 4; i++) {
+            for (var i = 0; i < this._levelInstruments[this._level]; i++) {
                 _loop_1(i);
             }
         };
@@ -224,10 +227,24 @@ var HumanMusic;
             this._current = (this._current + 1) % 16;
             this.lightTempoOff();
             if (this._mode == 1 /* PLAY */) {
-                for (var i = 0; i < 4; i++) {
+                for (var i = 0; i < this._levelInstruments[this._level]; i++) {
                     if (this._pushedPads[i][this._current]) {
                         this._soundArray[i].play();
+                        if (this.tuto === true) {
+                            if (this._pushedPads[i][this._current] === this._element.track[i][this._current]) {
+                                this._pads[i][this._current].setFrames(4, 4, 4);
+                                console.log('ok');
+                            }
+                            else {
+                                this._pads[i][this._current].setFrames(5, 5, 5);
+                                console.log('ko');
+                            }
+                        }
                     }
+                }
+                if (this.checkSolution() === true) {
+                    //Start result
+                    this.prepareVictory();
                 }
             }
             else if (this._mode == 0 /* LISTEN */) {
@@ -238,7 +255,7 @@ var HumanMusic;
                     this._beginListenCount++;
                 }
                 else {
-                    for (var i = 0; i < 4; i++) {
+                    for (var i = 0; i < this._levelInstruments[this._level]; i++) {
                         if (this._element.track[i][this._current]) {
                             this._soundArray[i].play();
                         }
@@ -258,6 +275,65 @@ var HumanMusic;
                     this.launchListen();
                 }
             }
+            else if (this._mode == 3 /* VICTORY */) {
+                for (var i = 0; i < this._levelInstruments[this._level]; i++) {
+                    if (this._element.track[i][this._current]) {
+                        this._soundArray[i].play();
+                    }
+                }
+                if (this._current == 15) {
+                    this.prepareNext();
+                }
+            }
+            else if (this._mode == 4 /* PRENEXT */) {
+                if (this._beginListenCount < 15) {
+                    if (this._beginListenCount % 4 == 0) {
+                        this._soundArray[5].play();
+                    }
+                    this._beginListenCount++;
+                }
+                else {
+                    this.launchNext();
+                }
+            }
+            else if (this._mode == 5 /* NEXT */) {
+                for (var i = 0; i < this._levelInstruments[this._level]; i++) {
+                    if (this._element.track[i][this._current]) {
+                        this._soundArray[i].play();
+                    }
+                }
+            }
+        };
+        MainLayer.prototype.checkSolution = function () {
+            for (var i = 0; i < this._levelInstruments[this._level]; i++) {
+                for (var j = 0; j < 16; j++) {
+                    if (this._pushedPads[i][j] != this._element.track[i][j]) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        };
+        MainLayer.prototype.prepareNext = function () {
+            this._timer.destroy();
+            this._timer = this.game.time.create(true);
+            this._timer.loop(170, this.tick, this);
+            this._timer.start();
+            this._mode = 4 /* PRENEXT */;
+            this._beginListenCount = 0;
+            console.log("PRENEXT");
+        };
+        MainLayer.prototype.launchNext = function () {
+            this._timer.destroy();
+            this._timer = this.game.time.create(true);
+            this._timer.loop(100, this.tick, this);
+            this._mode = 5 /* NEXT */;
+            this._timer.start();
+            console.log("BRAVO VCOMBEY !!");
+        };
+        MainLayer.prototype.prepareVictory = function () {
+            this._mode = 3 /* VICTORY */;
+            console.log("VICTORY");
         };
         MainLayer.prototype.lightTempoOn = function () {
             this._tempo[this._current].frame = 1;
@@ -419,9 +495,9 @@ var HumanMusic;
             this.createStartButton();
         };
         Start.prototype.createLogo = function () {
-            var disclaimer = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 4, "Human Music", null);
-            disclaimer.anchor.set(0.5, 0.5);
-            disclaimer.fill = '#00FFFF';
+            var logo = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 4, "Human Music", 70);
+            logo.anchor.set(0.5, 0.5);
+            logo.fill = '#00FFFF';
         };
         Start.prototype.createStartButton = function () {
             var start = this.add.button(HumanMusic.Global.GAME_WIDTH / 2, 3 * HumanMusic.Global.GAME_HEIGHT / 4, "Start", function () {

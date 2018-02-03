@@ -1,9 +1,10 @@
 namespace HumanMusic {
 
-    const enum tempoMode { LISTEN, PLAY, WAIT }
+    const enum tempoMode { LISTEN, PLAY, WAIT, VICTORY, PRENEXT, NEXT }
 
     export class MainLayer extends Phaser.Group {
 
+        private tuto: boolean = true;
         private _pads: Phaser.Button[][];
         private _tempo: Phaser.Sprite[];
         private _pushedPads: boolean[][];
@@ -18,11 +19,13 @@ namespace HumanMusic {
         private _current: number;
         private _beginListenCount: number;
         private _soundArray: Phaser.Sound[];
+        private _levelInstruments: number[] = [2, 3, 4];
 
         public constructor(game: Phaser.Game, parent: PIXI.DisplayObjectContainer, element: Elemental, level: number) {
             super(game, parent);
             this._element = element;
             this._level = level;
+            console.log(level);
 
             this._pads = [];
             this._tempo = [];
@@ -53,7 +56,7 @@ namespace HumanMusic {
 
         private initPushedPads() {
             this._pushedPads = [];
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < this._levelInstruments[this._level]; i++) {
                 this._pushedPads[i] = [];
                 for (let j = 0; j < 16; j++) {
                     this._pushedPads[i][j] = false;
@@ -74,7 +77,7 @@ namespace HumanMusic {
 
         private createTimer() {
             this._timer = this.game.time.create(false);
-            this._timer.loop(100, this.tick, this);
+            this._timer.loop(200, this.tick, this);
             this._timer.start(50);
         }
 
@@ -88,7 +91,7 @@ namespace HumanMusic {
 
         private generatePads() {
             let scope = this;
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < this._levelInstruments[this._level]; i++) {
                 this._pads[i] = [];
                 for (let j = 0; j < 16; j++) {
                     let button = this.game.add.button(51 * j + 125 + 2 * Math.ceil((j+1) / 4), 349 - 52 * i, 'Pad',function() {
@@ -145,10 +148,24 @@ namespace HumanMusic {
 
 
             if (this._mode == tempoMode.PLAY) {
-                for (let i = 0; i < 4; i++) {
+                for (let i = 0; i < this._levelInstruments[this._level]; i++) {
                     if (this._pushedPads[i][this._current]) {
                         this._soundArray[i].play();
+                        if (this.tuto === true) {
+                            if (this._pushedPads[i][this._current] === this._element.track[i][this._current]) {
+                                this._pads[i][this._current].setFrames(4,4,4);
+                                console.log('ok');
+                            } else {
+                                this._pads[i][this._current].setFrames(5,5,5);
+                                console.log('ko');
+                            }
+                        }
                     }
+
+                }
+                if (this.checkSolution() === true){
+                    //Start result
+                    this.prepareVictory();
                 }
             } else if (this._mode == tempoMode.LISTEN) {
                 if (this._beginListenCount < 16) {
@@ -157,7 +174,7 @@ namespace HumanMusic {
                     }
                     this._beginListenCount++;
                 } else {
-                    for (let i = 0; i < 4; i++) {
+                    for (let i = 0; i < this._levelInstruments[this._level]; i++) {
                         if (this._element.track[i][this._current]) {
                             this._soundArray[i].play();
                         }
@@ -174,7 +191,66 @@ namespace HumanMusic {
                 if (this._current % 4 == 0) {
                     this.launchListen();
                 }
+            } else if (this._mode == tempoMode.VICTORY) {
+                for (let i = 0; i < this._levelInstruments[this._level]; i++) {
+                    if (this._element.track[i][this._current]) {
+                        this._soundArray[i].play();
+                    }
+                }
+                if (this._current == 15) {
+                    this.prepareNext();
+                }
+            } else if (this._mode == tempoMode.PRENEXT) {
+                if (this._beginListenCount < 15) {
+                    if (this._beginListenCount % 4 == 0) {
+                        this._soundArray[5].play();
+                    }
+                    this._beginListenCount++;
+                } else {
+                    this.launchNext();
+                }
+            } else if (this._mode == tempoMode.NEXT) {
+                for (let i = 0; i < this._levelInstruments[this._level]; i++) {
+                    if (this._element.track[i][this._current]) {
+                        this._soundArray[i].play();
+                    }
+                }
             }
+        }
+
+        private checkSolution() {
+            for (let i = 0; i < this._levelInstruments[this._level]; i++) {
+                for (let j = 0; j < 16; j++) {
+                    if (this._pushedPads[i][j] != this._element.track[i][j]) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        private prepareNext() {
+            this._timer.destroy();
+            this._timer = this.game.time.create(true);
+            this._timer.loop(170, this.tick, this);
+            this._timer.start();
+            this._mode = tempoMode.PRENEXT;
+            this._beginListenCount = 0;
+            console.log("PRENEXT");
+        }
+
+        private launchNext() {
+            this._timer.destroy();
+            this._timer = this.game.time.create(true);
+            this._timer.loop(100, this.tick, this);
+            this._mode = tempoMode.NEXT;
+            this._timer.start();
+            console.log("BRAVO VCOMBEY !!");
+        }
+
+        private prepareVictory() {
+            this._mode = tempoMode.VICTORY;
+            console.log("VICTORY");
         }
 
         private lightTempoOn() {

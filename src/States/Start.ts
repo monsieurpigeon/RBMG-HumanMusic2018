@@ -7,10 +7,10 @@ namespace HumanMusic {
         }
 
         private createLogo() {
-            let disclaimer = this.add.text(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT / 4,
-                "Human Music", null);
-            disclaimer.anchor.set(0.5, 0.5);
-            disclaimer.fill = '#00FFFF';
+            let logo = this.add.text(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT / 4,
+                "Human Music", 70);
+            logo.anchor.set(0.5, 0.5);
+            logo.fill = '#00FFFF';
         }
 
         private createStartButton() {

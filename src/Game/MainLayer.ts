@@ -11,6 +11,7 @@ namespace HumanMusic {
 
         private _element: Elemental;
         private _level: number;
+        private _track: number;
 
         private _controls: Phaser.Sprite[];
         private _mode: tempoMode;
@@ -21,11 +22,12 @@ namespace HumanMusic {
         private _soundArray: Phaser.Sound[];
         private _levelInstruments: number[] = [2, 3, 4];
 
-        public constructor(game: Phaser.Game, parent: PIXI.DisplayObjectContainer, element: Elemental, level: number) {
+        public constructor(game: Phaser.Game, parent: PIXI.DisplayObjectContainer, track: number) {
             super(game, parent);
-            this._element = element;
-            this._level = level;
-            console.log(level);
+            this._track = track;
+            this._element = Elements.LIST[track];
+            this._level = Preferences.instance.score[track];
+            console.log('track: ', track);
 
             this._pads = [];
             this._tempo = [];
@@ -245,7 +247,20 @@ namespace HumanMusic {
             this._timer.loop(100, this.tick, this);
             this._mode = tempoMode.NEXT;
             this._timer.start();
-            console.log("BRAVO VCOMBEY !!");
+            Preferences.instance.score[this._track]++;
+            this.game.time.events.add(1000, function() {
+                this.createTracksButtons();
+            }, this);
+
+
+        }
+
+        private createTracksButtons() {
+            let start = this.game.add.button(Global.GAME_WIDTH / 2 ,Global.GAME_HEIGHT / 2,
+                "DebugButton", function() {
+                    this.game.state.start("Play", true, false, 0);
+                }, this);
+            start.anchor.set(0.5, 0.5);
         }
 
         private prepareVictory() {

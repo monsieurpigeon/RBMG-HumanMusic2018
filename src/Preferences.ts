@@ -8,6 +8,7 @@ namespace HumanMusic {
         public static get instance(): Preferences {
             if (Preferences._instance === null) {
                 Preferences._instance = new Preferences();
+                console.log('Preferences KO');
             }
 
             return Preferences._instance;

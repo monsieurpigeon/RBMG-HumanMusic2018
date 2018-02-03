@@ -38,6 +38,7 @@ var HumanMusic;
             _this.state.add("Start", HumanMusic.Start);
             _this.state.add("Menu", HumanMusic.Menu);
             _this.state.add("Play", HumanMusic.Play);
+            _this.state.add("Winner", HumanMusic.Winner);
             // start
             _this.state.start("Boot");
             return _this;
@@ -56,6 +57,7 @@ var HumanMusic;
             get: function () {
                 if (Preferences._instance === null) {
                     Preferences._instance = new Preferences();
+                    console.log('Preferences KO');
                 }
                 return Preferences._instance;
             },
@@ -108,13 +110,14 @@ var HumanMusic;
 (function (HumanMusic) {
     var MainLayer = /** @class */ (function (_super) {
         __extends(MainLayer, _super);
-        function MainLayer(game, parent, element, level) {
+        function MainLayer(game, parent, track) {
             var _this = _super.call(this, game, parent) || this;
             _this.tuto = true;
             _this._levelInstruments = [2, 3, 4];
-            _this._element = element;
-            _this._level = level;
-            console.log(level);
+            _this._track = track;
+            _this._element = HumanMusic.Elements.LIST[track];
+            _this._level = HumanMusic.Preferences.instance.score[track];
+            console.log('track: ', track);
             _this._pads = [];
             _this._tempo = [];
             _this._controls = [];
@@ -329,7 +332,16 @@ var HumanMusic;
             this._timer.loop(100, this.tick, this);
             this._mode = 5 /* NEXT */;
             this._timer.start();
-            console.log("BRAVO VCOMBEY !!");
+            HumanMusic.Preferences.instance.score[this._track]++;
+            this.game.time.events.add(1000, function () {
+                this.createTracksButtons();
+            }, this);
+        };
+        MainLayer.prototype.createTracksButtons = function () {
+            var start = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2, "DebugButton", function () {
+                this.game.state.start("Play", true, false, 0);
+            }, this);
+            start.anchor.set(0.5, 0.5);
         };
         MainLayer.prototype.prepareVictory = function () {
             this._mode = 3 /* VICTORY */;
@@ -430,12 +442,11 @@ var HumanMusic;
             return _super !== null && _super.apply(this, arguments) || this;
         }
         Play.prototype.init = function (index) {
-            this._element = HumanMusic.Elements.LIST[index];
-            this._level = HumanMusic.Preferences.instance.score[index];
+            this._index = index;
         };
         Play.prototype.create = function () {
             this.stage.backgroundColor = 0x222222;
-            this._mainLayer = new HumanMusic.MainLayer(this.game, this.world, this._element, this._level);
+            this._mainLayer = new HumanMusic.MainLayer(this.game, this.world, this._index);
         };
         Play.prototype.update = function () {
         };
@@ -508,5 +519,25 @@ var HumanMusic;
         return Start;
     }(Phaser.State));
     HumanMusic.Start = Start;
+})(HumanMusic || (HumanMusic = {}));
+var HumanMusic;
+(function (HumanMusic) {
+    var Winner = /** @class */ (function (_super) {
+        __extends(Winner, _super);
+        function Winner() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        Winner.prototype.create = function () {
+            this.createTracksButtons();
+        };
+        Winner.prototype.createTracksButtons = function () {
+            var start = this.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2, "DebugButton", function () {
+                this.game.state.start("Play", true, false, 0);
+            }, this);
+            start.anchor.set(0.5, 0.5);
+        };
+        return Winner;
+    }(Phaser.State));
+    HumanMusic.Winner = Winner;
 })(HumanMusic || (HumanMusic = {}));
 //# sourceMappingURL=game.js.map

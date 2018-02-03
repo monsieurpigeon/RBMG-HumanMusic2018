@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c6f3b8c-aef0-4f04-8d5b-8edd3805bfa4" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/listen.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/game.js" afterPath="$PROJECT_DIR$/js/game.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/game.js.map" afterPath="$PROJECT_DIR$/js/game.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/MainLayer.ts" afterPath="$PROJECT_DIR$/src/Game/MainLayer.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -40,8 +43,8 @@
       <file leaf-file-name="MainLayer.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Game/MainLayer.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="519">
-              <caret line="70" column="21" lean-forward="false" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="21" />
+            <state relative-caret-position="610">
+              <caret line="53" column="25" lean-forward="false" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -61,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/src/States/Disclaimer.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="9" column="89" lean-forward="false" selection-start-line="9" selection-start-column="89" selection-end-line="9" selection-end-column="89" />
+              <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="12" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -293,12 +296,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1517603075091</updated>
-      <workItem from="1517603076574" duration="41834000" />
+      <workItem from="1517603076574" duration="43284000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41834000" />
+    <option name="totallyTimeSpent" value="43284000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="70" y="23" width="1766" height="1286" extended-state="0" />
@@ -452,7 +455,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/listen.png">
+    <entry file="file://$PROJECT_DIR$/assets/Listen.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -461,14 +464,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/States/Disclaimer.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="89" lean-forward="false" selection-start-line="9" selection-start-column="89" selection-end-line="9" selection-end-column="89" />
           <folding />
         </state>
       </provider>
@@ -542,10 +537,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/States/Disclaimer.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="12" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game/MainLayer.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="70" column="21" lean-forward="false" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="21" />
+        <state relative-caret-position="610">
+          <caret line="53" column="25" lean-forward="false" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
           <folding />
         </state>
       </provider>

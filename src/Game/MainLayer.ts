@@ -12,6 +12,7 @@ namespace HumanMusic {
         private _element: Elemental;
         private _level: number;
         private _track: number;
+        private _remains: number;
 
         private _controls: Phaser.Sprite[];
         private _mode: tempoMode;
@@ -21,6 +22,7 @@ namespace HumanMusic {
         private _beginListenCount: number;
         private _soundArray: Phaser.Sound[];
         private _levelInstruments: number[] = [2, 3, 4];
+        private _remainText: Phaser.Text;
 
         public constructor(game: Phaser.Game, parent: PIXI.DisplayObjectContainer, track: number) {
             super(game, parent);
@@ -47,6 +49,11 @@ namespace HumanMusic {
             if (this._level > 0) {
                 this.populateTrack();
             }
+
+            this._remainText = this.game.add.text(3 * Global.GAME_WIDTH / 4 , Global.GAME_HEIGHT / 12,
+                "Remains:", null);
+            this._remainText.anchor.set(0.5, 0.5);
+            this._remainText.fill = '#00FFFF';
         }
 
         private populateTrack() {
@@ -180,7 +187,15 @@ namespace HumanMusic {
         }
 
         private computeRemains() {
-
+            this._remains = 0;
+            for (let i = 0; i < this._levelInstruments[this._level]; i++) {
+                for (let j = 0; j < 16; j++) {
+                    if (this._element.track[i][j] && !this._pushedPads[i][j]) {
+                        this._remains++;
+                    }
+                }
+            }
+            console.log('remains :', this._remains);
         }
 
         // Update

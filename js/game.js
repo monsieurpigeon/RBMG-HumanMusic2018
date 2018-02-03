@@ -133,6 +133,9 @@ var HumanMusic;
             if (_this._level > 0) {
                 _this.populateTrack();
             }
+            _this._remainText = _this.game.add.text(3 * HumanMusic.Global.GAME_WIDTH / 4, HumanMusic.Global.GAME_HEIGHT / 12, "Remains:", null);
+            _this._remainText.anchor.set(0.5, 0.5);
+            _this._remainText.fill = '#00FFFF';
             return _this;
         }
         MainLayer.prototype.populateTrack = function () {
@@ -259,6 +262,18 @@ var HumanMusic;
                     console.log('ko');
                 }
             }
+            this.computeRemains();
+        };
+        MainLayer.prototype.computeRemains = function () {
+            this._remains = 0;
+            for (var i = 0; i < this._levelInstruments[this._level]; i++) {
+                for (var j = 0; j < 16; j++) {
+                    if (this._element.track[i][j] && !this._pushedPads[i][j]) {
+                        this._remains++;
+                    }
+                }
+            }
+            console.log('remains :', this._remains);
         };
         // Update
         MainLayer.prototype.tick = function () {

@@ -44,6 +44,33 @@ namespace HumanMusic {
             this.generatePads();
             this.generateControls();
             this.launchListen();
+            if (this._level > 0) {
+                this.populateTrack();
+            }
+        }
+
+        private populateTrack() {
+            for (let i = 0; i < this._levelInstruments[this._level] - 1; i++) {
+                for (let j = 0; j < 16; j++) {
+                    if (this._element.track[i][j]) {
+                        this.pushPad(i, j);
+                    }
+                }
+            }
+            this.eraseTrack();
+        }
+
+        private eraseTrack() {
+            let dice = this.game.rnd.between(0, 3);
+            console.log('dice:', dice);
+
+            for (let i = 0; i < this._levelInstruments[this._level] - 1; i++) {
+                for (let j = dice * 4; j < ( dice + 1 ) * 4; j++) {
+                    if (this._pushedPads[i][j]) {
+                        this.pushPad(i, j);
+                    }
+                }
+            }
         }
 
         private initSounds() {
@@ -149,6 +176,11 @@ namespace HumanMusic {
                     console.log('ko');
                 }
             }
+            this.computeRemains();
+        }
+
+        private computeRemains() {
+
         }
 
         // Update
@@ -167,7 +199,6 @@ namespace HumanMusic {
                         this._soundArray[i].play();
                         this.correctInputs(i);
                     }
-
                 }
                 if (this.checkSolution() === true){
                     //Start result

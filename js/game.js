@@ -130,8 +130,32 @@ var HumanMusic;
             _this.generatePads();
             _this.generateControls();
             _this.launchListen();
+            if (_this._level > 0) {
+                _this.populateTrack();
+            }
             return _this;
         }
+        MainLayer.prototype.populateTrack = function () {
+            for (var i = 0; i < this._levelInstruments[this._level] - 1; i++) {
+                for (var j = 0; j < 16; j++) {
+                    if (this._element.track[i][j]) {
+                        this.pushPad(i, j);
+                    }
+                }
+            }
+            this.eraseTrack();
+        };
+        MainLayer.prototype.eraseTrack = function () {
+            var dice = this.game.rnd.between(0, 3);
+            console.log('dice:', dice);
+            for (var i = 0; i < this._levelInstruments[this._level] - 1; i++) {
+                for (var j = dice * 4; j < (dice + 1) * 4; j++) {
+                    if (this._pushedPads[i][j]) {
+                        this.pushPad(i, j);
+                    }
+                }
+            }
+        };
         MainLayer.prototype.initSounds = function () {
             this._soundArray = [];
             this._soundArray[0] = this.game.add.audio('kick');

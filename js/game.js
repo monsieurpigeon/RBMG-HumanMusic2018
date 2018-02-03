@@ -114,6 +114,7 @@ var HumanMusic;
             var _this = _super.call(this, game, parent) || this;
             _this.tuto = true;
             _this._levelInstruments = [2, 3, 4];
+            _this._score = 0;
             _this._track = track;
             _this._element = HumanMusic.Elements.LIST[track];
             _this._level = HumanMusic.Preferences.instance.score[track];
@@ -126,6 +127,7 @@ var HumanMusic;
             _this.initPushedPads();
             _this.initSounds();
             _this.createTimer();
+            _this.computeRemains();
             _this.generateTempo();
             _this.generatePads();
             _this.generateControls();
@@ -133,11 +135,41 @@ var HumanMusic;
             if (_this._level > 0) {
                 _this.populateTrack();
             }
-            _this._remainText = _this.game.add.text(3 * HumanMusic.Global.GAME_WIDTH / 4, HumanMusic.Global.GAME_HEIGHT / 12, "Remains:", null);
+            _this._remainText = _this.game.add.text(3 * HumanMusic.Global.GAME_WIDTH / 4, HumanMusic.Global.GAME_HEIGHT / 12, "Remains: " + _this._remains, null);
             _this._remainText.anchor.set(0.5, 0.5);
             _this._remainText.fill = '#00FFFF';
+            _this._scoreText = _this.game.add.text(1 * HumanMusic.Global.GAME_WIDTH / 4, HumanMusic.Global.GAME_HEIGHT / 12, "Score: " + _this._score, null);
+            _this._scoreText.anchor.set(0.5, 0.5);
+            _this._scoreText.fill = '#00FFFF';
+            _this.initBonusEmitter();
             return _this;
         }
+        MainLayer.prototype.updateRemainText = function () {
+            this._remainText.text = "Remains: " + this._remains;
+        };
+        MainLayer.prototype.updateSCoreText = function () {
+            this._scoreText.text = "Score: " + this._score;
+        };
+        MainLayer.prototype.initBonusEmitter = function () {
+            // Bonus emitter
+            var emitter = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, 16);
+            emitter.makeParticles("Bonus", [0]);
+            emitter.setYSpeed(-50, -20);
+            emitter.setRotation(0, 0);
+            emitter.setAlpha(1, 0, 500, Phaser.Easing.Linear.None);
+            emitter.gravity = -HumanMusic.Parameters.GRAVITY;
+            //this._pads['bonus'] = emitter;
+            this._bonusEmitter = emitter;
+            // Malus emitter
+            var emitter2 = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, 16);
+            emitter2.makeParticles("Bonus", [1]);
+            emitter2.setYSpeed(-50, -20);
+            emitter2.setRotation(0, 0);
+            emitter2.setAlpha(1, 0, 500, Phaser.Easing.Linear.None);
+            emitter2.gravity = -HumanMusic.Parameters.GRAVITY;
+            //this._pads['malus'] = emitter2;
+            this._malusEmitter = emitter2;
+        };
         MainLayer.prototype.populateTrack = function () {
             for (var i = 0; i < this._levelInstruments[this._level] - 1; i++) {
                 for (var j = 0; j < 16; j++) {
@@ -244,25 +276,34 @@ var HumanMusic;
             this._controls['listen'].inputEnabled = true;
             this._mode = 1 /* PLAY */;
         };
-        Object.defineProperty(MainLayer.prototype, "pads", {
-            get: function () {
-                return this._pads;
-            },
-            enumerable: true,
-            configurable: true
-        });
         MainLayer.prototype.correctInputs = function (index) {
             if (this.tuto === true) {
                 if (this._pushedPads[index][this._current] === this._element.track[index][this._current]) {
                     this._pads[index][this._current].setFrames(4, 4, 4);
-                    console.log('ok');
+                    // Bonus Emitter
+                    if (this._pads[index][this._current].inputEnabled === true) {
+                        this._bonusEmitter.emitX = this._pads[index][this._current].x;
+                        this._bonusEmitter.emitY = this._pads[index][this._current].y;
+                        this._bonusEmitter.setXSpeed(-20, 20);
+                        this._bonusEmitter.setYSpeed(0, 20);
+                        this._bonusEmitter.emitParticle();
+                        this._pads[index][this._current].inputEnabled = false;
+                        this._score += 2;
+                    }
                 }
                 else {
                     this._pads[index][this._current].setFrames(5, 5, 5);
-                    console.log('ko');
+                    // Malus Emitter
+                    this._malusEmitter.emitX = this._pads[index][this._current].x;
+                    this._malusEmitter.emitY = this._pads[index][this._current].y;
+                    this._malusEmitter.setXSpeed(-20, 20);
+                    this._malusEmitter.setYSpeed(0, 20);
+                    this._malusEmitter.emitParticle();
+                    this._score -= 1;
                 }
             }
             this.computeRemains();
+            this.updateSCoreText();
         };
         MainLayer.prototype.computeRemains = function () {
             this._remains = 0;
@@ -273,7 +314,9 @@ var HumanMusic;
                     }
                 }
             }
-            console.log('remains :', this._remains);
+            if (this._remainText) {
+                this.updateRemainText();
+            }
         };
         // Update
         MainLayer.prototype.tick = function () {
@@ -390,7 +433,20 @@ var HumanMusic;
         };
         MainLayer.prototype.prepareVictory = function () {
             this._mode = 3 /* VICTORY */;
+            // Lock all buttons
+            // Correct all buttons
+            this.correctAndLockAllEntries();
             console.log("VICTORY");
+        };
+        MainLayer.prototype.correctAndLockAllEntries = function () {
+            for (var i = 0; i < this._levelInstruments[this._level]; i++) {
+                for (var j = 0; j < 16; j++) {
+                    if (this._pushedPads[i][j] !== this._element.track[i][j]) {
+                        this.pushPad(i, j);
+                    }
+                    this._pads[i][j].inputEnabled = false;
+                }
+            }
         };
         MainLayer.prototype.lightTempoOn = function () {
             this._tempo[this._current].frame = 1;
@@ -415,6 +471,17 @@ var HumanMusic;
         return Pad;
     }());
     HumanMusic.Pad = Pad;
+})(HumanMusic || (HumanMusic = {}));
+var HumanMusic;
+(function (HumanMusic) {
+    var Parameters = /** @class */ (function () {
+        function Parameters() {
+        }
+        // gravity
+        Parameters.GRAVITY = 24;
+        return Parameters;
+    }());
+    HumanMusic.Parameters = Parameters;
 })(HumanMusic || (HumanMusic = {}));
 var HumanMusic;
 (function (HumanMusic) {
@@ -516,6 +583,7 @@ var HumanMusic;
             this.load.spritesheet('Pad', 'assets/pad.png', 50, 50);
             this.load.spritesheet('Listen', 'assets/listen.png', 200, 50);
             this.load.spritesheet('Start', 'assets/start.png', 200, 100);
+            this.load.spritesheet('Bonus', 'assets/bonus.png', 25, 25);
             // Sounds
             this.load.audio('kick', 'assets/kick.wav');
             this.load.audio('snare', 'assets/snare.wav');

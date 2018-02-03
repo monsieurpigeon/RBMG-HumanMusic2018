@@ -23,9 +23,15 @@ namespace HumanMusic {
         private _soundArray: Phaser.Sound[];
         private _levelInstruments: number[] = [2, 3, 4];
         private _remainText: Phaser.Text;
+        private _scoreText: Phaser.Text;
+
+        private _bonusEmitter: Phaser.Particles.Arcade.Emitter;
+        private _malusEmitter: Phaser.Particles.Arcade.Emitter;
+        private _score: number;
 
         public constructor(game: Phaser.Game, parent: PIXI.DisplayObjectContainer, track: number) {
             super(game, parent);
+            this._score = 0;
             this._track = track;
             this._element = Elements.LIST[track];
             this._level = Preferences.instance.score[track];
@@ -42,6 +48,7 @@ namespace HumanMusic {
             this.initSounds();
 
             this.createTimer();
+            this.computeRemains();
             this.generateTempo();
             this.generatePads();
             this.generateControls();
@@ -49,11 +56,45 @@ namespace HumanMusic {
             if (this._level > 0) {
                 this.populateTrack();
             }
-
             this._remainText = this.game.add.text(3 * Global.GAME_WIDTH / 4 , Global.GAME_HEIGHT / 12,
-                "Remains:", null);
+                "Remains: " + this._remains, null);
             this._remainText.anchor.set(0.5, 0.5);
             this._remainText.fill = '#00FFFF';
+            this._scoreText = this.game.add.text(1 * Global.GAME_WIDTH / 4 , Global.GAME_HEIGHT / 12,
+                "Score: " + this._score, null);
+            this._scoreText.anchor.set(0.5, 0.5);
+            this._scoreText.fill = '#00FFFF';
+            this.initBonusEmitter();
+        }
+
+        private updateRemainText() {
+            this._remainText.text = "Remains: " + this._remains;
+        }
+
+        private updateSCoreText() {
+            this._scoreText.text = "Score: " + this._score;
+        }
+
+        private initBonusEmitter() {
+            // Bonus emitter
+            let emitter = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, 16);
+            emitter.makeParticles("Bonus",[0]);
+            emitter.setYSpeed(-50, -20);
+            emitter.setRotation(0, 0);
+            emitter.setAlpha(1, 0, 500, Phaser.Easing.Linear.None);
+            emitter.gravity = -Parameters.GRAVITY;
+            //this._pads['bonus'] = emitter;
+            this._bonusEmitter = emitter;
+
+            // Malus emitter
+            let emitter2 = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, 16);
+            emitter2.makeParticles("Bonus",[1]);
+            emitter2.setYSpeed(-50, -20);
+            emitter2.setRotation(0, 0);
+            emitter2.setAlpha(1, 0, 500, Phaser.Easing.Linear.None);
+            emitter2.gravity = -Parameters.GRAVITY;
+            //this._pads['malus'] = emitter2;
+            this._malusEmitter = emitter2;
         }
 
         private populateTrack() {
@@ -169,21 +210,33 @@ namespace HumanMusic {
             this._mode = tempoMode.PLAY;
         }
 
-        public get pads(): Phaser.Button[][] {
-            return this._pads;
-        }
-
         private correctInputs(index: number) {
             if (this.tuto === true) {
                 if (this._pushedPads[index][this._current] === this._element.track[index][this._current]) {
                     this._pads[index][this._current].setFrames(4,4,4);
-                    console.log('ok');
+                    // Bonus Emitter
+                    if (this._pads[index][this._current].inputEnabled === true) {
+                        this._bonusEmitter.emitX = this._pads[index][this._current].x;
+                        this._bonusEmitter.emitY = this._pads[index][this._current].y;
+                        this._bonusEmitter.setXSpeed(-20, 20);
+                        this._bonusEmitter.setYSpeed(0, 20);
+                        this._bonusEmitter.emitParticle();
+                        this._pads[index][this._current].inputEnabled = false;
+                        this._score += 2;
+                    }
                 } else {
                     this._pads[index][this._current].setFrames(5,5,5);
-                    console.log('ko');
+                    // Malus Emitter
+                    this._malusEmitter.emitX = this._pads[index][this._current].x;
+                    this._malusEmitter.emitY = this._pads[index][this._current].y;
+                    this._malusEmitter.setXSpeed(-20, 20);
+                    this._malusEmitter.setYSpeed(0, 20);
+                    this._malusEmitter.emitParticle();
+                    this._score -= 1;
                 }
             }
             this.computeRemains();
+            this.updateSCoreText();
         }
 
         private computeRemains() {
@@ -195,7 +248,9 @@ namespace HumanMusic {
                     }
                 }
             }
-            console.log('remains :', this._remains);
+            if (this._remainText) {
+                this.updateRemainText();
+            }
         }
 
         // Update
@@ -318,7 +373,21 @@ namespace HumanMusic {
 
         private prepareVictory() {
             this._mode = tempoMode.VICTORY;
+            // Lock all buttons
+            // Correct all buttons
+            this.correctAndLockAllEntries();
             console.log("VICTORY");
+        }
+
+        private correctAndLockAllEntries() {
+            for (let i = 0; i < this._levelInstruments[this._level]; i++) {
+                for (let j = 0; j < 16; j++) {
+                    if (this._pushedPads[i][j] !== this._element.track[i][j]) {
+                        this.pushPad(i, j);
+                    }
+                    this._pads[i][j].inputEnabled = false;
+                }
+            }
         }
 
         private lightTempoOn() {

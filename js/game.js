@@ -49,15 +49,7 @@ var HumanMusic;
 (function (HumanMusic) {
     var Jukebox = /** @class */ (function () {
         function Jukebox(game, mainLayer) {
-            this._game = game;
-            this._mainLayer = mainLayer;
-            this._timer = game.time.create(false);
-            this._timer.loop(50, this.tictac, this);
-            this._timer.start(50);
         }
-        Jukebox.prototype.tictac = function () {
-            this._mainLayer._pads.alpha = this._game.rnd.between(0, 100) / 100;
-        };
         return Jukebox;
     }());
     HumanMusic.Jukebox = Jukebox;
@@ -69,31 +61,35 @@ var HumanMusic;
         function MainLayer(game, parent) {
             var _this = _super.call(this, game, parent) || this;
             _this._pads = new Phaser.Group(game, _this);
+            _this._tempo = new Phaser.Group(game, _this);
             _this._controls = new Phaser.Group(game, _this);
+            _this._current = 15;
+            _this._mode = 0 /* LISTEN */;
+            _this.createTimer();
             _this.generatePads();
             _this.generateControls();
             return _this;
         }
+        MainLayer.prototype.createTimer = function () {
+            this._timer = this.game.time.create(false);
+            this._timer.loop(300, this.tick, this);
+            this._timer.start(50);
+        };
         MainLayer.prototype.generatePads = function () {
-            var _loop_1 = function (i) {
-                var button_1 = this_1.game.add.button(10, 50 * i, 'DebugButton', function () {
-                    console.log("hello" + i);
-                });
-                this_1._pads.add(button_1);
-            };
-            var this_1 = this;
             for (var i = 0; i < 16; i++) {
-                _loop_1(i);
+                var tempo = this.game.add.sprite(51 * i + 100, 400, 'TempoOn');
+                this._tempo.add(tempo);
             }
-            var button = this.game.add.button(100, 500, 'DebugButton', function () {
-                console.log("hello");
-            });
-            this.add(button);
+            // let button = this.game.add.button(100, 500, 'DebugButton', function() {
+            //     console.log("hello");
+            // });
+            // this.add(button);
         };
         MainLayer.prototype.generateControls = function () {
-            var button = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2, 'DebugButton', function () {
-                console.log("PLAY");
-            });
+            var button = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT, 'DebugButton', function () {
+                this.resetTempo();
+            }, this);
+            button.anchor.set(0.5, 0.2);
             this.add(button);
         };
         Object.defineProperty(MainLayer.prototype, "pads", {
@@ -103,6 +99,28 @@ var HumanMusic;
             enumerable: true,
             configurable: true
         });
+        MainLayer.prototype.tick = function () {
+            this.lightTempoOn();
+            this._current = (this._current + 1) % 16;
+            this.lightTempoOff();
+        };
+        MainLayer.prototype.lightTempoOn = function () {
+            this._tempo.getChildAt(this._current).position.y = 400;
+            this._tempo.getChildAt(this._current).alpha = 1;
+        };
+        MainLayer.prototype.lightTempoOff = function () {
+            if (this._mode == 0 /* LISTEN */)
+                this._tempo.getChildAt(this._current).alpha = 0.5;
+            else if (this._mode == 1 /* PLAY */) {
+                this._tempo.getChildAt(this._current).alpha = 0.1;
+            }
+            this._tempo.getChildAt(this._current).position.y = 405;
+        };
+        MainLayer.prototype.resetTempo = function () {
+            this._tempo.getChildAt(this._current).alpha = 1;
+            this._mode = 1 /* PLAY */;
+            this._current = 15;
+        };
         return MainLayer;
     }(Phaser.Group));
     HumanMusic.MainLayer = MainLayer;
@@ -159,14 +177,10 @@ var HumanMusic;
             return _super !== null && _super.apply(this, arguments) || this;
         }
         Play.prototype.create = function () {
-            this.stage.backgroundColor = 0xA0DA6F;
+            this.stage.backgroundColor = 0x222222;
             this._mainLayer = new HumanMusic.MainLayer(this.game, this.world);
-            this._jukebox = new HumanMusic.Jukebox(this.game, this._mainLayer);
         };
         Play.prototype.update = function () {
-        };
-        Play.prototype.tictac = function () {
-            console.log("tic");
         };
         return Play;
     }(Phaser.State));
@@ -185,6 +199,8 @@ var HumanMusic;
             // Preload all assets
             // Sprites
             this.load.spritesheet('DebugButton', 'assets/debugbutton.png', 200, 200);
+            this.load.spritesheet('TempoOn', 'assets/tempo_on.png', 50, 20);
+            this.load.spritesheet('TempoOff', 'assets/tempo_off.png', 50, 20);
             // Sounds
         };
         Preload.prototype.update = function () {

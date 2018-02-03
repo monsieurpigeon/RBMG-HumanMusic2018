@@ -224,6 +224,18 @@ var HumanMusic;
             enumerable: true,
             configurable: true
         });
+        MainLayer.prototype.correctInputs = function (index) {
+            if (this.tuto === true) {
+                if (this._pushedPads[index][this._current] === this._element.track[index][this._current]) {
+                    this._pads[index][this._current].setFrames(4, 4, 4);
+                    console.log('ok');
+                }
+                else {
+                    this._pads[index][this._current].setFrames(5, 5, 5);
+                    console.log('ko');
+                }
+            }
+        };
         // Update
         MainLayer.prototype.tick = function () {
             this.lightTempoOn();
@@ -233,16 +245,7 @@ var HumanMusic;
                 for (var i = 0; i < this._levelInstruments[this._level]; i++) {
                     if (this._pushedPads[i][this._current]) {
                         this._soundArray[i].play();
-                        if (this.tuto === true) {
-                            if (this._pushedPads[i][this._current] === this._element.track[i][this._current]) {
-                                this._pads[i][this._current].setFrames(4, 4, 4);
-                                console.log('ok');
-                            }
-                            else {
-                                this._pads[i][this._current].setFrames(5, 5, 5);
-                                console.log('ko');
-                            }
-                        }
+                        this.correctInputs(i);
                     }
                 }
                 if (this.checkSolution() === true) {
@@ -261,6 +264,9 @@ var HumanMusic;
                     for (var i = 0; i < this._levelInstruments[this._level]; i++) {
                         if (this._element.track[i][this._current]) {
                             this._soundArray[i].play();
+                        }
+                        if (this._pushedPads[i][this._current]) {
+                            this.correctInputs(i);
                         }
                     }
                     if (this._current == 15) {

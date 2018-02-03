@@ -13,11 +13,10 @@ namespace HumanMusic {
             {
                 name: "Fire",
                 track: [
-                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+                    [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false],
+                    [true, false, false, true, false, false, true, false, false, true, false, false, true, false, false, true],
+                    [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
+                    [false, true, false, true, false, false, false, true, false, true, false, true, false, false, false, true]
                 ],
                 tempo: [280, 250, 200],
                 introduction: "Bonjour"

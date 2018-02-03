@@ -8,7 +8,7 @@ namespace HumanMusic {
         private createTracksButtons() {
             let start = this.add.button(Global.GAME_WIDTH / 2 ,Global.GAME_HEIGHT / 2,
                 "DebugButton", function() {
-                    this.game.state.start("Play", false, false, 0);
+                    this.game.state.start("Play", true, false, 0);
                 }, this);
             start.anchor.set(0.5, 0.5);
         }

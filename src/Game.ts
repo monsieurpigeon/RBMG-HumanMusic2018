@@ -7,6 +7,7 @@ namespace HumanMusic {
             // load states
             this.state.add("Boot", Boot);
             this.state.add("Preload", Preload);
+            this.state.add("Disclaimer", Disclaimer);
             this.state.add("Start", Start);
             this.state.add("Menu", Menu);
             this.state.add("Play", Play);

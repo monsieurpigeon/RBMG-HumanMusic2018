@@ -34,6 +34,7 @@ var HumanMusic;
             // load states
             _this.state.add("Boot", HumanMusic.Boot);
             _this.state.add("Preload", HumanMusic.Preload);
+            _this.state.add("Disclaimer", HumanMusic.Disclaimer);
             _this.state.add("Start", HumanMusic.Start);
             _this.state.add("Menu", HumanMusic.Menu);
             _this.state.add("Play", HumanMusic.Play);
@@ -75,11 +76,10 @@ var HumanMusic;
             {
                 name: "Fire",
                 track: [
-                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
-                    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+                    [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false],
+                    [true, false, false, true, false, false, true, false, false, true, false, false, true, false, false, true],
+                    [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
+                    [false, true, false, true, false, false, false, true, false, true, false, true, false, false, false, true]
                 ],
                 tempo: [280, 250, 200],
                 introduction: "Bonjour"
@@ -114,15 +114,16 @@ var HumanMusic;
             _this._level = level;
             _this._pads = [];
             _this._tempo = [];
-            _this._controls = new Phaser.Group(game, _this);
+            _this._controls = [];
             _this._current = 15;
-            _this._mode = 1 /* PLAY */;
+            _this._beginListenCount = 0;
             _this.initPushedPads();
             _this.initSounds();
             _this.createTimer();
             _this.generateTempo();
             _this.generatePads();
             _this.generateControls();
+            _this.launchListen();
             return _this;
         }
         MainLayer.prototype.initSounds = function () {
@@ -132,6 +133,7 @@ var HumanMusic;
             this._soundArray[2] = this.game.add.audio('hihat');
             this._soundArray[3] = this.game.add.audio('bell');
             this._soundArray[4] = this.game.add.audio('yeah');
+            this._soundArray[5] = this.game.add.audio('metronome');
         };
         MainLayer.prototype.initPushedPads = function () {
             this._pushedPads = [];
@@ -146,10 +148,10 @@ var HumanMusic;
         MainLayer.prototype.pushPad = function (instrument, tempo) {
             this._pushedPads[instrument][tempo] = !this._pushedPads[instrument][tempo];
             if (this._pushedPads[instrument][tempo]) {
-                this._pads[instrument].getChildAt(tempo).alpha = 0.5;
+                this._pads[instrument][tempo].setFrames(3, 3, 3);
             }
             else {
-                this._pads[instrument].getChildAt(tempo).alpha = 1;
+                this._pads[instrument][tempo].setFrames(1, 0, 2);
             }
         };
         MainLayer.prototype.createTimer = function () {
@@ -159,7 +161,7 @@ var HumanMusic;
         };
         MainLayer.prototype.generateTempo = function () {
             for (var i = 0; i < 16; i++) {
-                var tempo = this.game.add.sprite(51 * i + 100, 400, 'Tempo', 1);
+                var tempo = this.game.add.sprite(51 * i + 100 + 2 * Math.ceil((i + 1) / 4), 400, 'Tempo', 1);
                 tempo.anchor.set(0.5, 0.5);
                 this._tempo[i] = tempo;
             }
@@ -167,13 +169,13 @@ var HumanMusic;
         MainLayer.prototype.generatePads = function () {
             var scope = this;
             var _loop_1 = function (i) {
-                this_1._pads[i] = new Phaser.Group(this_1.game, this_1);
+                this_1._pads[i] = [];
                 var _loop_2 = function (j) {
-                    var button = this_1.game.add.button(51 * j + 100, 349 - 51 * i, 'Pad', function () {
+                    var button = this_1.game.add.button(51 * j + 100 + 2 * Math.ceil((j + 1) / 4), 349 - 52 * i, 'Pad', function () {
                         scope.pushPad(i, j);
-                    }, this_1, 0, 1, 2);
+                    }, this_1, 1, 0, 2);
                     button.anchor.set(0.5, 0.5);
-                    this_1._pads[i].add(button);
+                    this_1._pads[i][j] = button;
                 };
                 for (var j = 0; j < 16; j++) {
                     _loop_2(j);
@@ -185,12 +187,29 @@ var HumanMusic;
             }
         };
         MainLayer.prototype.generateControls = function () {
-            var button = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT, 'DebugButton', function () {
-                this.resetTempo();
-                this._mode = 0 /* LISTEN */;
+            var button = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT - 20, 'Listen', function () {
+                this.preLaunchListen();
             }, this);
-            button.anchor.set(0.5, 0.2);
-            this.add(button);
+            button.anchor.set(0.5, 1);
+            this._controls['listen'] = button;
+        };
+        MainLayer.prototype.preLaunchListen = function () {
+            this._mode = 2 /* WAIT */;
+            this._controls['listen'].frame = 1;
+            this._controls['listen'].inputEnabled = false;
+        };
+        MainLayer.prototype.launchListen = function () {
+            this.resetTempo();
+            this._controls['listen'].frame = 1;
+            this._controls['listen'].inputEnabled = false;
+            this._beginListenCount = 0;
+            this._mode = 0 /* LISTEN */;
+        };
+        MainLayer.prototype.stopListen = function () {
+            this._beginListenCount = 0;
+            this._controls['listen'].frame = 0;
+            this._controls['listen'].inputEnabled = true;
+            this._mode = 1 /* PLAY */;
         };
         Object.defineProperty(MainLayer.prototype, "pads", {
             get: function () {
@@ -199,37 +218,52 @@ var HumanMusic;
             enumerable: true,
             configurable: true
         });
+        // Update
         MainLayer.prototype.tick = function () {
             this.lightTempoOn();
             this._current = (this._current + 1) % 16;
+            this.lightTempoOff();
             if (this._mode == 1 /* PLAY */) {
                 for (var i = 0; i < 4; i++) {
                     if (this._pushedPads[i][this._current]) {
                         this._soundArray[i].play();
-                        console.log(i);
                     }
                 }
             }
             else if (this._mode == 0 /* LISTEN */) {
-                for (var i = 0; i < 4; i++) {
-                    if (this._element.track[i][this._current]) {
-                        this._soundArray[i].play();
-                        console.log(i);
+                if (this._beginListenCount < 16) {
+                    if (this._beginListenCount % 4 == 0) {
+                        this._soundArray[5].play();
+                    }
+                    this._beginListenCount++;
+                }
+                else {
+                    for (var i = 0; i < 4; i++) {
+                        if (this._element.track[i][this._current]) {
+                            this._soundArray[i].play();
+                        }
+                    }
+                    if (this._current == 15) {
+                        if (this._beginListenCount < 18) {
+                            this._beginListenCount++;
+                        }
+                        else {
+                            this.stopListen();
+                        }
                     }
                 }
             }
-            this.lightTempoOff();
+            else if (this._mode == 2 /* WAIT */) {
+                if (this._current % 4 == 0) {
+                    this.launchListen();
+                }
+            }
         };
         MainLayer.prototype.lightTempoOn = function () {
             this._tempo[this._current].frame = 1;
         };
         MainLayer.prototype.lightTempoOff = function () {
-            if (this._mode == 0 /* LISTEN */) {
-                this._tempo[this._current].frame = 1;
-            }
-            else if (this._mode == 1 /* PLAY */) {
-                this._tempo[this._current].frame = 0;
-            }
+            this._tempo[this._current].frame = 0;
         };
         MainLayer.prototype.resetTempo = function () {
             this._tempo[this._current].frame = 1;
@@ -266,6 +300,34 @@ var HumanMusic;
 })(HumanMusic || (HumanMusic = {}));
 var HumanMusic;
 (function (HumanMusic) {
+    var Disclaimer = /** @class */ (function (_super) {
+        __extends(Disclaimer, _super);
+        function Disclaimer() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        Disclaimer.prototype.create = function () {
+            this.createDisclaimer();
+            this.waitToStart();
+        };
+        Disclaimer.prototype.createDisclaimer = function () {
+            var disclaimer = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2, "Use headphones for best experience", null);
+            disclaimer.anchor.set(0.5, 0.5);
+            disclaimer.fill = '#00FFFF';
+        };
+        Disclaimer.prototype.waitToStart = function () {
+            var _this = this;
+            var timer = this.game.time.create(true);
+            timer.add(3000, function () {
+                _this.game.state.start("Start");
+            });
+            timer.start(50);
+        };
+        return Disclaimer;
+    }(Phaser.State));
+    HumanMusic.Disclaimer = Disclaimer;
+})(HumanMusic || (HumanMusic = {}));
+var HumanMusic;
+(function (HumanMusic) {
     var Menu = /** @class */ (function (_super) {
         __extends(Menu, _super);
         function Menu() {
@@ -276,7 +338,7 @@ var HumanMusic;
         };
         Menu.prototype.createTracksButtons = function () {
             var start = this.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2, "DebugButton", function () {
-                this.game.state.start("Play", false, false, 0);
+                this.game.state.start("Play", true, false, 0);
             }, this);
             start.anchor.set(0.5, 0.5);
         };
@@ -320,22 +382,24 @@ var HumanMusic;
             this.load.spritesheet('DebugButton', 'assets/debugbutton.png', 50, 50);
             this.load.spritesheet('Tempo', 'assets/tempo.png', 50, 5);
             this.load.spritesheet('Pad', 'assets/pad.png', 50, 50);
+            this.load.spritesheet('Listen', 'assets/listen.png', 200, 50);
             // Sounds
             this.load.audio('kick', 'assets/kick.wav');
             this.load.audio('snare', 'assets/snare.wav');
             this.load.audio('hihat', 'assets/hihat.wav');
             this.load.audio('bell', 'assets/bell.wav');
             this.load.audio('yeah', 'assets/yeah.mp3');
+            this.load.audio('metronome', 'assets/metronome.wav');
         };
         Preload.prototype.update = function () {
             if (this._ready === false && this.cache.isSoundDecoded("kick") &&
                 this.cache.isSoundDecoded("snare") &&
                 this.cache.isSoundDecoded("hihat") && this.cache.isSoundDecoded("bell") &&
-                this.cache.isSoundDecoded("yeah")) {
+                this.cache.isSoundDecoded("yeah") && this.cache.isSoundDecoded("metronome")) {
                 this._ready = true;
             }
             this.time.events.add(500, function () {
-                this.game.state.start("Start");
+                this.game.state.start("Disclaimer");
             }, this);
         };
         return Preload;
@@ -350,11 +414,11 @@ var HumanMusic;
             return _super !== null && _super.apply(this, arguments) || this;
         }
         Start.prototype.create = function () {
-            this.createDisclaimer();
+            this.createLogo();
             this.createStartButton();
         };
-        Start.prototype.createDisclaimer = function () {
-            var disclaimer = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 4, "Use headphones for best experience", null);
+        Start.prototype.createLogo = function () {
+            var disclaimer = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 4, "Human Music", null);
             disclaimer.anchor.set(0.5, 0.5);
             disclaimer.fill = '#00FFFF';
         };

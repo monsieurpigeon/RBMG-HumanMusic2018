@@ -2,13 +2,13 @@ namespace HumanMusic {
     export class Start extends Phaser.State {
 
         public create() {
-            this.createDisclaimer();
+            this.createLogo();
             this.createStartButton();
         }
 
-        private createDisclaimer() {
+        private createLogo() {
             let disclaimer = this.add.text(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT / 4,
-                "Use headphones for best experience", null);
+                "Human Music", null);
             disclaimer.anchor.set(0.5, 0.5);
             disclaimer.fill = '#00FFFF';
         }

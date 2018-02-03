@@ -1,21 +1,22 @@
 namespace HumanMusic {
 
-    const enum tempoMode { LISTEN, PLAY }
+    const enum tempoMode { LISTEN, PLAY, WAIT }
 
     export class MainLayer extends Phaser.Group {
 
-        private _pads: Phaser.Group[];
+        private _pads: Phaser.Button[][];
         private _tempo: Phaser.Sprite[];
         private _pushedPads: boolean[][];
 
         private _element: Elemental;
         private _level: number;
 
-        private _controls: Phaser.Group;
+        private _controls: Phaser.Sprite[];
         private _mode: tempoMode;
 
         private _timer: Phaser.Timer;
         private _current: number;
+        private _beginListenCount: number;
         private _soundArray: Phaser.Sound[];
 
         public constructor(game: Phaser.Game, parent: PIXI.DisplayObjectContainer, element: Elemental, level: number) {
@@ -25,10 +26,10 @@ namespace HumanMusic {
 
             this._pads = [];
             this._tempo = [];
-            this._controls = new Phaser.Group(game, this);
+            this._controls = [];
 
             this._current = 15;
-            this._mode = tempoMode.PLAY;
+            this._beginListenCount = 0;
 
             this.initPushedPads();
             this.initSounds();
@@ -37,6 +38,7 @@ namespace HumanMusic {
             this.generateTempo();
             this.generatePads();
             this.generateControls();
+            this.launchListen();
         }
 
         private initSounds() {
@@ -46,6 +48,7 @@ namespace HumanMusic {
             this._soundArray[2] = this.game.add.audio('hihat');
             this._soundArray[3] = this.game.add.audio('bell');
             this._soundArray[4] = this.game.add.audio('yeah');
+            this._soundArray[5] = this.game.add.audio('metronome');
         }
 
         private initPushedPads() {
@@ -62,9 +65,9 @@ namespace HumanMusic {
         private pushPad(instrument: number, tempo: number) {
             this._pushedPads[instrument][tempo] = !this._pushedPads[instrument][tempo];
             if (this._pushedPads[instrument][tempo]) {
-                this._pads[instrument].getChildAt(tempo).alpha = 0.5;
+                this._pads[instrument][tempo].setFrames(3,3,3);
             } else {
-                this._pads[instrument].getChildAt(tempo).alpha = 1;
+                this._pads[instrument][tempo].setFrames(1,0,2);
             }
 
         }
@@ -77,7 +80,7 @@ namespace HumanMusic {
 
         private generateTempo() {
             for (let i = 0; i < 16; i++) {
-                let tempo = this.game.add.sprite(51 * i + 100, 400, 'Tempo', 1);
+                let tempo = this.game.add.sprite(51 * i + 100 + 2 * Math.ceil((i+1) / 4), 400, 'Tempo', 1);
                 tempo.anchor.set(0.5, 0.5);
                 this._tempo[i] = tempo;
             }
@@ -86,53 +89,92 @@ namespace HumanMusic {
         private generatePads() {
             let scope = this;
             for (let i = 0; i < 4; i++) {
-                this._pads[i] = new Phaser.Group(this.game, this);
+                this._pads[i] = [];
                 for (let j = 0; j < 16; j++) {
-                    let button = this.game.add.button(51 * j + 100, 349 - 51 * i, 'Pad', function() {
+                    let button = this.game.add.button(51 * j + 100 + 2 * Math.ceil((j+1) / 4), 349 - 52 * i, 'Pad',function() {
                         scope.pushPad(i, j);
-                    }, this, 0, 1, 2);
+                    }, this, 1, 0, 2);
                     button.anchor.set(0.5, 0.5);
-                    this._pads[i].add(button);
+                    this._pads[i][j] = button;
                 }
             }
 
         }
 
         private generateControls() {
-            let button = this.game.add.button(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT, 'DebugButton', function() {
-
-                this.resetTempo();
-                this._mode = tempoMode.LISTEN;
+            let button = this.game.add.button(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT - 20, 'Listen', function() {
+                this.preLaunchListen();
             }, this);
-            button.anchor.set(0.5, 0.2);
-            this.add(button);
+            button.anchor.set(0.5, 1);
+            this._controls['listen'] = button;
         }
 
-        public get pads(): Phaser.Group[] {
+        private preLaunchListen() {
+            this._mode = tempoMode.WAIT;
+            this._controls['listen'].frame = 1;
+            this._controls['listen'].inputEnabled = false;
+        }
+
+        private launchListen() {
+            this.resetTempo();
+            this._controls['listen'].frame = 1;
+            this._controls['listen'].inputEnabled = false;
+            this._beginListenCount = 0;
+            this._mode = tempoMode.LISTEN;
+        }
+
+        private stopListen() {
+            this._beginListenCount = 0;
+            this._controls['listen'].frame = 0;
+            this._controls['listen'].inputEnabled = true;
+            this._mode = tempoMode.PLAY;
+        }
+
+        public get pads(): Phaser.Button[][] {
             return this._pads;
         }
+
+        // Update
 
         private tick() {
 
             this.lightTempoOn();
             this._current = (this._current + 1) % 16;
+            this.lightTempoOff();
+
+
 
             if (this._mode == tempoMode.PLAY) {
                 for (let i = 0; i < 4; i++) {
                     if (this._pushedPads[i][this._current]) {
                         this._soundArray[i].play();
-                        console.log(i);
                     }
                 }
             } else if (this._mode == tempoMode.LISTEN) {
-                for (let i = 0; i < 4; i++) {
-                    if (this._element.track[i][this._current]) {
-                        this._soundArray[i].play();
-                        console.log(i);
+                if (this._beginListenCount < 16) {
+                    if (this._beginListenCount % 4 == 0) {
+                        this._soundArray[5].play();
+                    }
+                    this._beginListenCount++;
+                } else {
+                    for (let i = 0; i < 4; i++) {
+                        if (this._element.track[i][this._current]) {
+                            this._soundArray[i].play();
+                        }
+                    }
+                    if (this._current == 15) {
+                        if (this._beginListenCount < 18) {
+                            this._beginListenCount++;
+                        } else {
+                            this.stopListen();
+                        }
                     }
                 }
+            } else if (this._mode == tempoMode.WAIT) {
+                if (this._current % 4 == 0) {
+                    this.launchListen();
+                }
             }
-            this.lightTempoOff();
         }
 
         private lightTempoOn() {
@@ -140,12 +182,7 @@ namespace HumanMusic {
         }
 
         private lightTempoOff() {
-            if (this._mode == tempoMode.LISTEN) {
-                this._tempo[this._current].frame = 1;
-            }
-            else if (this._mode == tempoMode.PLAY) {
-                this._tempo[this._current].frame = 0;
-            }
+            this._tempo[this._current].frame = 0;
         }
 
         private resetTempo() {
@@ -153,7 +190,5 @@ namespace HumanMusic {
             this._mode = tempoMode.PLAY;
             this._current = 15;
         }
-
-
     }
 }

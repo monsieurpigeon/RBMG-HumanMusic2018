@@ -290,6 +290,9 @@ namespace HumanMusic {
                         }
                     }
                     if (this._current == 15) {
+                        if (this._remains == 0) {
+                            this._beginListenCount = 18;
+                        }
                         if (this._beginListenCount < 18) {
                             this._beginListenCount++;
                         } else {
@@ -305,6 +308,9 @@ namespace HumanMusic {
                 for (let i = 0; i < this._levelInstruments[this._level]; i++) {
                     if (this._element.track[i][this._current]) {
                         this._soundArray[i].play();
+                    }
+                    if (this._pushedPads[i][this._current]) {
+                        this.correctInputs(i);
                     }
                 }
                 if (this._current == 15) {

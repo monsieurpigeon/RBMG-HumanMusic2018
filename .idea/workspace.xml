@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c6f3b8c-aef0-4f04-8d5b-8edd3805bfa4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/bonus.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Game/Parameters.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/game.js" afterPath="$PROJECT_DIR$/js/game.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/game.js.map" afterPath="$PROJECT_DIR$/js/game.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/MainLayer.ts" afterPath="$PROJECT_DIR$/src/Game/MainLayer.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/States/Preload.ts" afterPath="$PROJECT_DIR$/src/States/Preload.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -45,8 +42,8 @@
       <file leaf-file-name="MainLayer.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Game/MainLayer.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="584">
-              <caret line="238" column="35" lean-forward="false" selection-start-line="238" selection-start-column="35" selection-end-line="238" selection-end-column="35" />
+            <state relative-caret-position="565">
+              <caret line="293" column="56" lean-forward="false" selection-start-line="293" selection-start-column="56" selection-end-line="293" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -300,12 +297,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1517603075091</updated>
-      <workItem from="1517603076574" duration="48501000" />
+      <workItem from="1517603076574" duration="49227000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48501000" />
+    <option name="totallyTimeSpent" value="49227000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="70" y="23" width="1766" height="1286" extended-state="0" />
@@ -559,8 +556,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Game/MainLayer.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="238" column="35" lean-forward="false" selection-start-line="238" selection-start-column="35" selection-end-line="238" selection-end-column="35" />
+        <state relative-caret-position="565">
+          <caret line="293" column="56" lean-forward="false" selection-start-line="293" selection-start-column="56" selection-end-line="293" selection-end-column="56" />
           <folding />
         </state>
       </provider>

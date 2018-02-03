@@ -47,6 +47,45 @@ var HumanMusic;
 })(HumanMusic || (HumanMusic = {}));
 var HumanMusic;
 (function (HumanMusic) {
+    var Jukebox = /** @class */ (function () {
+        function Jukebox(game) {
+            console.log("The jukebox is still alive");
+        }
+        return Jukebox;
+    }());
+    HumanMusic.Jukebox = Jukebox;
+})(HumanMusic || (HumanMusic = {}));
+var HumanMusic;
+(function (HumanMusic) {
+    var MainLayer = /** @class */ (function (_super) {
+        __extends(MainLayer, _super);
+        function MainLayer(game, parent) {
+            var _this = _super.call(this, game, parent) || this;
+            _this._pads = new Phaser.Group(game, _this);
+            return _this;
+        }
+        Object.defineProperty(MainLayer.prototype, "pads", {
+            get: function () {
+                return this._pads;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return MainLayer;
+    }(Phaser.Group));
+    HumanMusic.MainLayer = MainLayer;
+})(HumanMusic || (HumanMusic = {}));
+var HumanMusic;
+(function (HumanMusic) {
+    var Pad = /** @class */ (function () {
+        function Pad() {
+        }
+        return Pad;
+    }());
+    HumanMusic.Pad = Pad;
+})(HumanMusic || (HumanMusic = {}));
+var HumanMusic;
+(function (HumanMusic) {
     var Boot = /** @class */ (function (_super) {
         __extends(Boot, _super);
         function Boot() {
@@ -88,7 +127,18 @@ var HumanMusic;
             return _super !== null && _super.apply(this, arguments) || this;
         }
         Play.prototype.create = function () {
-            console.log("YAY");
+            this.time = new Phaser.Time(this.game);
+            this.stage.backgroundColor = 0xA0DA6F;
+            this._mainLayer = new HumanMusic.MainLayer(this.game, this.world);
+            this._jukebox = new HumanMusic.Jukebox(this.game);
+            this.timer = this.game.time.create(false);
+            this.timer.loop(1000, this.tictac, this);
+            this.timer.start(500);
+        };
+        Play.prototype.update = function () {
+        };
+        Play.prototype.tictac = function () {
+            console.log("tic");
         };
         return Play;
     }(Phaser.State));

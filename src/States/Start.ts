@@ -8,7 +8,7 @@ namespace HumanMusic {
 
         private createDisclaimer() {
             let disclaimer = this.add.text(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT / 4,
-                "Use headphones for better experience", null);
+                "Use headphones for best experience", null);
             disclaimer.anchor.set(0.5, 0.5);
             disclaimer.fill = '#00FFFF';
         }

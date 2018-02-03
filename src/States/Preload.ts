@@ -7,8 +7,8 @@ namespace HumanMusic {
             // Preload all assets
             // Sprites
             this.load.spritesheet('DebugButton', 'assets/debugbutton.png', 50, 50);
-            this.load.spritesheet('TempoOn', 'assets/tempo_on.png', 50, 20);
-            this.load.spritesheet('TempoOff', 'assets/tempo_off.png', 50, 20);
+            this.load.spritesheet('Tempo', 'assets/tempo.png', 50, 5);
+            this.load.spritesheet('Pad', 'assets/pad.png', 50, 50);
 
             // Sounds
             this.load.audio('kick', 'assets/kick.wav');

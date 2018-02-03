@@ -60,30 +60,79 @@ var HumanMusic;
         __extends(MainLayer, _super);
         function MainLayer(game, parent) {
             var _this = _super.call(this, game, parent) || this;
-            _this._pads = new Phaser.Group(game, _this);
+            _this._pads = [];
             _this._tempo = new Phaser.Group(game, _this);
             _this._controls = new Phaser.Group(game, _this);
             _this._current = 15;
             _this._mode = 0 /* LISTEN */;
+            _this.initPushedPads();
+            _this.initSounds();
             _this.createTimer();
+            _this.generateTempo();
             _this.generatePads();
             _this.generateControls();
             return _this;
         }
+        MainLayer.prototype.initSounds = function () {
+            this._soundArray = [];
+            this._soundArray[0] = this.game.add.audio('kick');
+            this._soundArray[1] = this.game.add.audio('snare');
+            this._soundArray[2] = this.game.add.audio('hihat');
+            this._soundArray[3] = this.game.add.audio('bell');
+            this._soundArray[4] = this.game.add.audio('yeah');
+            this._soundArray[4].play();
+        };
+        MainLayer.prototype.initPushedPads = function () {
+            this._pushedPads = [];
+            for (var i = 0; i < 5; i++) {
+                this._pushedPads[i] = [];
+                for (var j = 0; j < 16; j++) {
+                    this._pushedPads[i][j] = false;
+                }
+            }
+            console.log(this._pushedPads);
+        };
+        MainLayer.prototype.pushPad = function (instrument, tempo) {
+            this._pushedPads[instrument][tempo] = !this._pushedPads[instrument][tempo];
+            if (this._pushedPads[instrument][tempo]) {
+                this._pads[instrument].getChildAt(tempo).alpha = 0.5;
+            }
+            else {
+                this._pads[instrument].getChildAt(tempo).alpha = 1;
+            }
+        };
         MainLayer.prototype.createTimer = function () {
             this._timer = this.game.time.create(false);
-            this._timer.loop(300, this.tick, this);
+            this._timer.loop(100, this.tick, this);
             this._timer.start(50);
         };
-        MainLayer.prototype.generatePads = function () {
+        MainLayer.prototype.generateTempo = function () {
             for (var i = 0; i < 16; i++) {
                 var tempo = this.game.add.sprite(51 * i + 100, 400, 'TempoOn');
+                tempo.anchor.set(0.5, 0.5);
                 this._tempo.add(tempo);
             }
-            // let button = this.game.add.button(100, 500, 'DebugButton', function() {
-            //     console.log("hello");
-            // });
-            // this.add(button);
+        };
+        MainLayer.prototype.generatePads = function () {
+            var scope = this;
+            var _loop_1 = function (i) {
+                this_1._pads[i] = new Phaser.Group(this_1.game, this_1);
+                var _loop_2 = function (j) {
+                    var button = this_1.game.add.button(51 * j + 100, 349 - 51 * i, 'DebugButton', function () {
+                        scope.pushPad(i, j);
+                        console.log(scope._pushedPads);
+                    });
+                    button.anchor.set(0.5, 0.5);
+                    this_1._pads[i].add(button);
+                };
+                for (var j = 0; j < 16; j++) {
+                    _loop_2(j);
+                }
+            };
+            var this_1 = this;
+            for (var i = 0; i < 5; i++) {
+                _loop_1(i);
+            }
         };
         MainLayer.prototype.generateControls = function () {
             var button = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT, 'DebugButton', function () {
@@ -102,6 +151,12 @@ var HumanMusic;
         MainLayer.prototype.tick = function () {
             this.lightTempoOn();
             this._current = (this._current + 1) % 16;
+            for (var i = 0; i < 5; i++) {
+                if (this._pushedPads[i][this._current]) {
+                    this._soundArray[i].play();
+                    console.log(i);
+                }
+            }
             this.lightTempoOff();
         };
         MainLayer.prototype.lightTempoOn = function () {
@@ -198,13 +253,21 @@ var HumanMusic;
         Preload.prototype.preload = function () {
             // Preload all assets
             // Sprites
-            this.load.spritesheet('DebugButton', 'assets/debugbutton.png', 200, 200);
+            this.load.spritesheet('DebugButton', 'assets/debugbutton.png', 50, 50);
             this.load.spritesheet('TempoOn', 'assets/tempo_on.png', 50, 20);
             this.load.spritesheet('TempoOff', 'assets/tempo_off.png', 50, 20);
             // Sounds
+            this.load.audio('kick', 'assets/kick.wav');
+            this.load.audio('snare', 'assets/snare.wav');
+            this.load.audio('hihat', 'assets/hihat.wav');
+            this.load.audio('bell', 'assets/bell.wav');
+            this.load.audio('yeah', 'assets/yeah.mp3');
         };
         Preload.prototype.update = function () {
-            if (this._ready === false) {
+            if (this._ready === false && this.cache.isSoundDecoded("kick") &&
+                this.cache.isSoundDecoded("snare") &&
+                this.cache.isSoundDecoded("hihat") && this.cache.isSoundDecoded("bell") &&
+                this.cache.isSoundDecoded("yeah")) {
                 this._ready = true;
             }
             this.time.events.add(500, function () {

@@ -6,17 +6,24 @@ namespace HumanMusic {
         public preload() {
             // Preload all assets
             // Sprites
-            this.load.spritesheet('DebugButton', 'assets/debugbutton.png', 200, 200);
+            this.load.spritesheet('DebugButton', 'assets/debugbutton.png', 50, 50);
             this.load.spritesheet('TempoOn', 'assets/tempo_on.png', 50, 20);
             this.load.spritesheet('TempoOff', 'assets/tempo_off.png', 50, 20);
 
-
             // Sounds
+            this.load.audio('kick', 'assets/kick.wav');
+            this.load.audio('snare', 'assets/snare.wav');
+            this.load.audio('hihat', 'assets/hihat.wav');
+            this.load.audio('bell', 'assets/bell.wav');
+            this.load.audio('yeah', 'assets/yeah.mp3');
 
         }
 
         public update() {
-            if (this._ready === false ) {
+            if (this._ready === false && this.cache.isSoundDecoded("kick") &&
+            this.cache.isSoundDecoded("snare") &&
+            this.cache.isSoundDecoded("hihat") && this.cache.isSoundDecoded("bell") &&
+                this.cache.isSoundDecoded("yeah")) {
                 this._ready = true;
             }
             this.time.events.add(500, function() {

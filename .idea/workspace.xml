@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c6f3b8c-aef0-4f04-8d5b-8edd3805bfa4" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/bell.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/hihat.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/kick.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/snare.wav" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/yeah.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/game.js" afterPath="$PROJECT_DIR$/js/game.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/game.js.map" afterPath="$PROJECT_DIR$/js/game.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/Jukebox.ts" afterPath="$PROJECT_DIR$/src/Game/Jukebox.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/MainLayer.ts" afterPath="$PROJECT_DIR$/src/Game/MainLayer.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/States/Play.ts" afterPath="$PROJECT_DIR$/src/States/Play.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/States/Preload.ts" afterPath="$PROJECT_DIR$/src/States/Preload.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -65,8 +68,8 @@
       <file leaf-file-name="MainLayer.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Game/MainLayer.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="659">
-              <caret line="79" column="14" lean-forward="true" selection-start-line="79" selection-start-column="14" selection-end-line="79" selection-end-column="14" />
+            <state relative-caret-position="610">
+              <caret line="70" column="31" lean-forward="false" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -75,8 +78,8 @@
       <file leaf-file-name="Preload.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/States/Preload.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="76" lean-forward="false" selection-start-line="10" selection-start-column="76" selection-end-line="10" selection-end-column="76" />
+            <state relative-caret-position="255">
+              <caret line="17" column="44" lean-forward="false" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -148,9 +151,9 @@
         <option value="$PROJECT_DIR$/src/States/Start.ts" />
         <option value="$PROJECT_DIR$/src/States/Menu.ts" />
         <option value="$PROJECT_DIR$/src/Game/Pad.ts" />
-        <option value="$PROJECT_DIR$/src/States/Preload.ts" />
         <option value="$PROJECT_DIR$/src/Game/Jukebox.ts" />
         <option value="$PROJECT_DIR$/src/States/Play.ts" />
+        <option value="$PROJECT_DIR$/src/States/Preload.ts" />
         <option value="$PROJECT_DIR$/src/Game/MainLayer.ts" />
       </list>
     </option>
@@ -165,8 +168,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="327" />
-    <option name="y" value="96" />
+    <option name="x" value="199" />
+    <option name="y" value="93" />
     <option name="width" value="1653" />
     <option name="height" value="1256" />
   </component>
@@ -288,15 +291,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1517603075091</updated>
-      <workItem from="1517603076574" duration="17488000" />
+      <workItem from="1517603076574" duration="20740000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17488000" />
+    <option name="totallyTimeSpent" value="20740000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="327" y="96" width="1653" height="1256" extended-state="0" />
+    <frame x="199" y="93" width="1653" height="1256" extended-state="0" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3137255" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -324,7 +327,16 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/Game/MainLayer.ts</url>
+          <line>61</line>
+          <properties />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -450,14 +462,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/States/Preload.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="76" lean-forward="false" selection-start-line="10" selection-start-column="76" selection-end-line="10" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game/Jukebox.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -474,10 +478,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/States/Preload.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="44" lean-forward="false" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game/MainLayer.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="659">
-          <caret line="79" column="14" lean-forward="true" selection-start-line="79" selection-start-column="14" selection-end-line="79" selection-end-column="14" />
+        <state relative-caret-position="610">
+          <caret line="70" column="31" lean-forward="false" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
           <folding />
         </state>
       </provider>

@@ -14,6 +14,8 @@ namespace HumanMusic {
             this.load.spritesheet('Bonus', 'assets/bonus.png', 25, 25);
             this.load.spritesheet('Elements', 'assets/elements.png', 377, 200);
             this.load.spritesheet('Navigation', 'assets/navigation.png', 200, 50);
+            this.load.spritesheet('Return', 'assets/return.png', 50, 50);
+            this.load.spritesheet('Instruments', 'assets/instruments.png', 50, 50);
 
             // Sounds
             this.load.audio('kick', 'assets/kick.wav');

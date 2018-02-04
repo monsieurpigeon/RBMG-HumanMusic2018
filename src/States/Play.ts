@@ -9,7 +9,7 @@ namespace HumanMusic {
         }
 
         public create() {
-            this.stage.backgroundColor = 0x222222;
+            this.stage.backgroundColor = 0x000000;
             this._mainLayer = new MainLayer(this.game, this.world, this._index);
         }
 

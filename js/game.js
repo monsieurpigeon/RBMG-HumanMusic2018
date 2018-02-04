@@ -148,6 +148,8 @@ var HumanMusic;
             _this._pads = [];
             _this._tempo = [];
             _this._controls = [];
+            _this._instruments = [];
+            _this._instrumentTweens = [];
             _this._current = 15;
             _this._beginListenCount = 0;
             _this.initPushedPads();
@@ -155,6 +157,7 @@ var HumanMusic;
             _this.createTimer();
             _this.computeRemains();
             _this.generateTempo();
+            _this.generateInstruments();
             _this.generatePads();
             _this.generateControls();
             _this.launchListen();
@@ -168,7 +171,6 @@ var HumanMusic;
             _this._remainText.anchor.set(1, 0.5);
             _this._remainText.fill = '#00FFFF';
             _this.initBonusEmitter();
-            console.log(_this._level, _this._element);
             return _this;
         }
         MainLayer.prototype.updateRemainText = function () {
@@ -255,6 +257,21 @@ var HumanMusic;
                 this._tempo[i] = tempo;
             }
         };
+        MainLayer.prototype.generateInstruments = function () {
+            for (var i = 0; i < this._levelInstruments[this._level]; i++) {
+                this._instruments[i] = this.game.add.sprite(51, 349 - 52 * i, 'Instruments', i);
+                this._instruments[i].anchor.set(0.5, 0.5);
+                this._instrumentTweens[i] = this.game.add.tween(this._instruments[i].scale).
+                    to({ x: 0.8, y: 0.8 }, 100, function (k) {
+                    return Math.sin(Math.PI * k);
+                }, false, 0);
+            }
+        };
+        MainLayer.prototype.bounce = function (index) {
+            if (!this._instrumentTweens[index].isRunning) {
+                this._instrumentTweens[index].start();
+            }
+        };
         MainLayer.prototype.generatePads = function () {
             var scope = this;
             var _loop_1 = function (i) {
@@ -280,6 +297,11 @@ var HumanMusic;
                 this.preLaunchListen();
             }, this);
             button.anchor.set(0.5, 1);
+            this._controls['listen'] = button;
+            var returnButton = this.game.add.button(50, 50, 'Return', function () {
+                this.game.state.start("Menu");
+            }, this, 1, 0, 2);
+            returnButton.anchor.set(0.5, 0.5);
             this._controls['listen'] = button;
         };
         MainLayer.prototype.preLaunchListen = function () {
@@ -351,6 +373,7 @@ var HumanMusic;
                 for (var i = 0; i < this._levelInstruments[this._level]; i++) {
                     if (this._pushedPads[i][this._current]) {
                         this._soundArray[i].play();
+                        this.bounce(i);
                         this.correctInputs(i);
                     }
                 }
@@ -370,6 +393,7 @@ var HumanMusic;
                     for (var i = 0; i < this._levelInstruments[this._level]; i++) {
                         if (this._element.track[i][this._current]) {
                             this._soundArray[i].play();
+                            this.bounce(i);
                         }
                         if (this._pushedPads[i][this._current]) {
                             this.correctInputs(i);
@@ -421,6 +445,7 @@ var HumanMusic;
                 for (var i = 0; i < this._levelInstruments[this._level]; i++) {
                     if (this._element.track[i][this._current]) {
                         this._soundArray[i].play();
+                        this.bounce(i);
                     }
                     if (this._pushedPads[i][this._current]) {
                         this.correctInputs(i);
@@ -610,7 +635,7 @@ var HumanMusic;
             this._index = index;
         };
         Play.prototype.create = function () {
-            this.stage.backgroundColor = 0x222222;
+            this.stage.backgroundColor = 0x000000;
             this._mainLayer = new HumanMusic.MainLayer(this.game, this.world, this._index);
         };
         Play.prototype.update = function () {
@@ -639,6 +664,8 @@ var HumanMusic;
             this.load.spritesheet('Bonus', 'assets/bonus.png', 25, 25);
             this.load.spritesheet('Elements', 'assets/elements.png', 377, 200);
             this.load.spritesheet('Navigation', 'assets/navigation.png', 200, 50);
+            this.load.spritesheet('Return', 'assets/return.png', 50, 50);
+            this.load.spritesheet('Instruments', 'assets/instruments.png', 50, 50);
             // Sounds
             this.load.audio('kick', 'assets/kick.wav');
             this.load.audio('snare', 'assets/snare.wav');

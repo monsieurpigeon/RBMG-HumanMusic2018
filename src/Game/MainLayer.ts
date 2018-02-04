@@ -6,8 +6,10 @@ namespace HumanMusic {
 
         private tuto: boolean = true;
         private _pads: Phaser.Button[][];
+        private _instruments: Phaser.Sprite[];
         private _tempo: Phaser.Sprite[];
         private _pushedPads: boolean[][];
+        public _instrumentTweens: Phaser.Tween[];
 
         private _element: Elemental;
         private _level: number;
@@ -39,6 +41,8 @@ namespace HumanMusic {
             this._pads = [];
             this._tempo = [];
             this._controls = [];
+            this._instruments = [];
+            this._instrumentTweens = [];
 
             this._current = 15;
             this._beginListenCount = 0;
@@ -49,6 +53,7 @@ namespace HumanMusic {
             this.createTimer();
             this.computeRemains();
             this.generateTempo();
+            this.generateInstruments();
             this.generatePads();
             this.generateControls();
             this.launchListen();
@@ -66,7 +71,7 @@ namespace HumanMusic {
             this._remainText.fill = '#00FFFF';
 
             this.initBonusEmitter();
-            console.log(this._level, this._element);
+
         }
 
         private updateRemainText() {
@@ -166,6 +171,25 @@ namespace HumanMusic {
             }
         }
 
+        private generateInstruments() {
+            for (let i = 0; i < this._levelInstruments[this._level]; i++) {
+                this._instruments[i] = this.game.add.sprite(51, 349 - 52 * i, 'Instruments', i);
+                this._instruments[i].anchor.set(0.5, 0.5);
+
+                this._instrumentTweens[i] = this.game.add.tween(this._instruments[i].scale).
+                to({ x: 0.8, y: 0.8 }, 100,
+                    function (k: number) {
+                        return Math.sin(Math.PI * k);
+                    }, false, 0);
+            }
+        }
+
+        public bounce(index: number): void {
+            if (!this._instrumentTweens[index].isRunning) {
+                this._instrumentTweens[index].start();
+            }
+        }
+
         private generatePads() {
             let scope = this;
             for (let i = 0; i < this._levelInstruments[this._level]; i++) {
@@ -186,6 +210,12 @@ namespace HumanMusic {
                 this.preLaunchListen();
             }, this);
             button.anchor.set(0.5, 1);
+            this._controls['listen'] = button;
+
+            let returnButton = this.game.add.button(50 , 50, 'Return', function() {
+                this.game.state.start("Menu");
+            }, this, 1, 0, 2);
+            returnButton.anchor.set(0.5, 0.5);
             this._controls['listen'] = button;
         }
 
@@ -267,6 +297,7 @@ namespace HumanMusic {
                 for (let i = 0; i < this._levelInstruments[this._level]; i++) {
                     if (this._pushedPads[i][this._current]) {
                         this._soundArray[i].play();
+                        this.bounce(i);
                         this.correctInputs(i);
                     }
                 }
@@ -284,6 +315,7 @@ namespace HumanMusic {
                     for (let i = 0; i < this._levelInstruments[this._level]; i++) {
                         if (this._element.track[i][this._current]) {
                             this._soundArray[i].play();
+                            this.bounce(i);
                         }
                         if (this._pushedPads[i][this._current]) {
                             this.correctInputs(i);
@@ -308,6 +340,7 @@ namespace HumanMusic {
                 for (let i = 0; i < this._levelInstruments[this._level]; i++) {
                     if (this._element.track[i][this._current]) {
                         this._soundArray[i].play();
+                        this.bounce(i);
                     }
                     if (this._pushedPads[i][this._current]) {
                         this.correctInputs(i);
@@ -329,6 +362,7 @@ namespace HumanMusic {
                 for (let i = 0; i < this._levelInstruments[this._level]; i++) {
                     if (this._element.track[i][this._current]) {
                         this._soundArray[i].play();
+                        this.bounce(i);
                     }
                     if (this._pushedPads[i][this._current]) {
                         this.correctInputs(i);

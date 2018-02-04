@@ -22,17 +22,6 @@ namespace HumanMusic {
                 instruments: ["kick", "snare", "hihat", "bell"]
             },
             {
-                name: "☁️ Air",
-                track: [
-                    [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
-                    [false, true, false, false, true, false, false, false, true, false, false, true, false, false, false, true],
-                    [true, false, false, true, false, false, true, false, false, false, true, false, true, false, false, false],
-                    [false, true, false, false, true, false, false, true, false, false, false, true, false, false, true, false]
-                ],
-                introduction: "Bonjour",
-                instruments: ["kick", "snare", "hihat", "bell"]
-            },
-            {
                 name: "🌱 Earth",
                 track: [
                     [true, false, false, true, false, false, true, false, false, false, true, false, false, false, true, false],
@@ -43,6 +32,18 @@ namespace HumanMusic {
                 introduction: "Bonjour",
                 instruments: ["kick", "snare", "hihat", "bell"]
             },
+            {
+                name: "☁️ Air",
+                track: [
+                    [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
+                    [false, true, false, false, true, false, false, false, true, false, false, true, false, false, false, true],
+                    [true, false, false, true, false, false, true, false, false, false, true, false, true, false, false, false],
+                    [false, true, false, false, true, false, false, true, false, false, false, true, false, false, true, false]
+                ],
+                introduction: "Bonjour",
+                instruments: ["kick", "snare", "hihat", "bell"]
+            },
+
             {
                 name: "💧 Water",
                 track: [

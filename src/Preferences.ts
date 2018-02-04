@@ -3,7 +3,7 @@ namespace HumanMusic {
 
         private static _instance: Preferences = null;
 
-        public score: number[] = [0, 0, 0, 0, 0];
+        public score: number[] = [0, 0, 0, 0, -1];
         public top: number[] = [0, 0, 0, 0, 0];
 
         public static get instance(): Preferences {

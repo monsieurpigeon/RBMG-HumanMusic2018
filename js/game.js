@@ -50,7 +50,7 @@ var HumanMusic;
 (function (HumanMusic) {
     var Preferences = /** @class */ (function () {
         function Preferences() {
-            this.score = [0, 0, 0, 0, 0];
+            this.score = [0, 0, 0, 0, -1];
             this.top = [0, 0, 0, 0, 0];
         }
         Object.defineProperty(Preferences, "instance", {
@@ -86,23 +86,23 @@ var HumanMusic;
                 instruments: ["kick", "snare", "hihat", "bell"]
             },
             {
-                name: "☁️ Air",
-                track: [
-                    [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
-                    [false, true, false, false, true, false, false, false, true, false, false, true, false, false, false, true],
-                    [true, false, false, true, false, false, true, false, false, false, true, false, true, false, false, false],
-                    [false, true, false, false, true, false, false, true, false, false, false, true, false, false, true, false]
-                ],
-                introduction: "Bonjour",
-                instruments: ["kick", "snare", "hihat", "bell"]
-            },
-            {
                 name: "🌱 Earth",
                 track: [
                     [true, false, false, true, false, false, true, false, false, false, true, false, false, false, true, false],
                     [false, true, false, false, false, true, false, false, false, true, false, false, true, false, true, false],
                     [false, false, true, false, true, false, false, false, true, false, false, true, false, false, false, false],
                     [false, true, false, true, false, false, true, false, false, true, false, false, false, false, true, false]
+                ],
+                introduction: "Bonjour",
+                instruments: ["kick", "snare", "hihat", "bell"]
+            },
+            {
+                name: "☁️ Air",
+                track: [
+                    [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
+                    [false, true, false, false, true, false, false, false, true, false, false, true, false, false, false, true],
+                    [true, false, false, true, false, false, true, false, false, false, true, false, true, false, false, false],
+                    [false, true, false, false, true, false, false, true, false, false, false, true, false, false, true, false]
                 ],
                 introduction: "Bonjour",
                 instruments: ["kick", "snare", "hihat", "bell"]
@@ -647,21 +647,44 @@ var HumanMusic;
         Menu.prototype.create = function () {
             this._elements = [];
             this.createMenu();
+            this.checkEnd();
+            if (HumanMusic.Preferences.instance.score[4] !== 0) {
+                var logo = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2 - 20, "Human Music", null);
+                logo.anchor.set(0.5, 0.5);
+                logo.fontSize = 70;
+                logo.fill = '#00FFFF';
+                var instructions = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2 + 20, "Find the way to link whatever you hear, whatever you see and whatever you remember", null);
+                instructions.anchor.set(0.5, 0.5);
+                instructions.fontSize = 14;
+                instructions.fill = '#00FFFF';
+            }
         };
         Menu.prototype.createMenu = function () {
             var _loop_3 = function (i) {
-                this_2._elements[i] = this_2.game.add.button(this_2._positions[i].x, this_2._positions[i].y, 'Elements', function () {
-                    this.game.state.start("Play", true, false, i);
-                }, this_2, i, i, i);
-                this_2._elements[i].anchor.set(0.5, 0.5);
-                this_2._highScores[i] = this_2.game.add.text(this_2._positions[i].x, this_2._positions[i].y + 85, "HighScore: " + HumanMusic.Preferences.instance.top[i].toString(), null);
-                this_2._highScores[i].anchor.set(0.5, 0.5);
-                this_2._highScores[i].fill = '#777777';
-                this_2._highScores[i].fontSize = 15;
+                if (HumanMusic.Preferences.instance.score[i] >= 0) {
+                    this_2._elements[i] = this_2.game.add.button(this_2._positions[i].x, this_2._positions[i].y, 'Elements', function () {
+                        this.game.state.start("Play", true, false, i);
+                    }, this_2, i, i, i);
+                    this_2._elements[i].anchor.set(0.5, 0.5);
+                    this_2._highScores[i] = this_2.game.add.text(this_2._positions[i].x, this_2._positions[i].y + 85, "HighScore: " + HumanMusic.Preferences.instance.top[i].toString(), null);
+                    this_2._highScores[i].anchor.set(0.5, 0.5);
+                    this_2._highScores[i].fill = '#777777';
+                    this_2._highScores[i].fontSize = 15;
+                }
             };
             var this_2 = this;
             for (var i = 0; i < 5; i++) {
                 _loop_3(i);
+            }
+        };
+        Menu.prototype.checkEnd = function () {
+            for (var i = 0; i < 4; i++) {
+                if (HumanMusic.Preferences.instance.score[i] < 2) {
+                    return;
+                }
+            }
+            if (HumanMusic.Preferences.instance.score[4] == -1) {
+                HumanMusic.Preferences.instance.score[4] = 0;
             }
         };
         return Menu;
@@ -754,10 +777,6 @@ var HumanMusic;
             moto.fontStyle = 'italic';
             moto.fontSize = 15;
             moto.fill = '#00FFFF';
-            var instructions = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT - 50, "Find the way to link what you hear, what you see and what you remember", null);
-            instructions.anchor.set(0.5, 0.5);
-            instructions.fontSize = 14;
-            instructions.fill = '#00FFFF';
         };
         Start.prototype.createStartButton = function () {
             var start = this.add.button(HumanMusic.Global.GAME_WIDTH / 2, 3 * HumanMusic.Global.GAME_HEIGHT / 4, "Start", function () {

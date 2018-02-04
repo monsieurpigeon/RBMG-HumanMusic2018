@@ -8,9 +8,17 @@ namespace HumanMusic {
 
         private createLogo() {
             let logo = this.add.text(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT / 4,
-                "Human Music", 70);
+                "Human Music", null);
             logo.anchor.set(0.5, 0.5);
+            logo.fontSize = 70;
             logo.fill = '#00FFFF';
+
+            let moto = this.add.text(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT / 4 + 50,
+                "Let's bring back harmony, one element at a time", null);
+            moto.anchor.set(0.5, 0.5);
+            moto.fontStyle = 'italic';
+            moto.fontSize = 15;
+            moto.fill = '#00FFFF';
         }
 
         private createStartButton() {

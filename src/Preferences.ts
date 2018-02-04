@@ -4,6 +4,7 @@ namespace HumanMusic {
         private static _instance: Preferences = null;
 
         public score: number[] = [0, 0, 0, 0, 0];
+        public top: number[] = [0, 0, 0, 0, 0];
 
         public static get instance(): Preferences {
             if (Preferences._instance === null) {

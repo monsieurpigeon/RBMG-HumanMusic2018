@@ -51,6 +51,7 @@ var HumanMusic;
     var Preferences = /** @class */ (function () {
         function Preferences() {
             this.score = [0, 0, 0, 0, 0];
+            this.top = [0, 0, 0, 0, 0];
         }
         Object.defineProperty(Preferences, "instance", {
             get: function () {
@@ -141,19 +142,26 @@ var HumanMusic;
             var _this = _super.call(this, game, parent) || this;
             _this.tuto = true;
             _this._levelInstruments = [2, 3, 4];
+            _this._levelToText = ["easy", "medium", "hard"];
             _this._score = 0;
+            _this._remains = 0;
             _this._track = track;
             _this._element = HumanMusic.Elements.LIST[track];
-            _this._level = HumanMusic.Preferences.instance.score[track];
+            _this._level = Math.min(HumanMusic.Preferences.instance.score[track], 3);
+            _this._highScore = HumanMusic.Preferences.instance.top[track];
             _this._pads = [];
             _this._tempo = [];
             _this._controls = [];
             _this._instruments = [];
             _this._instrumentTweens = [];
+            _this._textTweens = [];
             _this._current = 15;
             _this._beginListenCount = 0;
             _this.initPushedPads();
             _this.initSounds();
+            _this._remainText = _this.game.add.text(1024 - 100, HumanMusic.Global.GAME_HEIGHT / 12, "Remaining: ...", null);
+            _this._remainText.anchor.set(1, 0.5);
+            _this._remainText.fill = '#00FFFF';
             _this.createTimer();
             _this.computeRemains();
             _this.generateTempo();
@@ -161,23 +169,45 @@ var HumanMusic;
             _this.generatePads();
             _this.generateControls();
             _this.launchListen();
-            if (_this._level > 0) {
+            if (_this._level > 0 && _this._level < 3) {
                 _this.populateTrack();
             }
             _this._scoreText = _this.game.add.text(100, HumanMusic.Global.GAME_HEIGHT / 12, "Score: " + _this._score, null);
             _this._scoreText.anchor.set(0, 0.5);
             _this._scoreText.fill = '#00FFFF';
-            _this._remainText = _this.game.add.text(1024 - 100, HumanMusic.Global.GAME_HEIGHT / 12, "Remains: " + _this._remains, null);
-            _this._remainText.anchor.set(1, 0.5);
-            _this._remainText.fill = '#00FFFF';
+            _this._highScoreText = _this.game.add.text(100, HumanMusic.Global.GAME_HEIGHT / 12 + 20, "Highscore: " + _this._highScore, null);
+            _this._highScoreText.anchor.set(0, 0.5);
+            _this._highScoreText.fontSize = 12;
+            _this._highScoreText.fill = '#006767';
+            _this._textTweens[0] = _this.game.add.tween(_this._scoreText.scale).
+                to({ x: 1.2, y: 1.2 }, 100, function (k) {
+                return Math.sin(Math.PI * k);
+            }, false, 0);
+            _this._textTweens[1] = _this.game.add.tween(_this._remainText.scale).
+                to({ x: 1.2, y: 1.2 }, 100, function (k) {
+                return Math.sin(Math.PI * k);
+            }, false, 0);
+            _this._title = _this.game.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 12, _this._element.name + " : " + _this._levelToText[_this._level], null);
+            _this._title.anchor.set(0.5, 0.5);
+            _this._title.fill = '#00FFFF';
             _this.initBonusEmitter();
             return _this;
         }
         MainLayer.prototype.updateRemainText = function () {
-            this._remainText.text = "Remains: " + this._remains;
+            this._remainText.text = "Remaining: " + this._remains;
         };
         MainLayer.prototype.updateSCoreText = function () {
+            if (this._score > this._highScore) {
+                this._highScore = this._score;
+                HumanMusic.Preferences.instance.top[this._track] = this._highScore;
+                this._highScoreText.text = "Highscore: " + this._highScore;
+            }
             this._scoreText.text = "Score: " + this._score;
+        };
+        MainLayer.prototype.bounceText = function (type) {
+            if (!this._textTweens[type].isRunning) {
+                this._textTweens[type].start();
+            }
         };
         MainLayer.prototype.initBonusEmitter = function () {
             // Bonus emitter
@@ -335,6 +365,7 @@ var HumanMusic;
                         this._pads[index][this._current].inputEnabled = false;
                         this._pads[index][this._current].setFrames(4, 4, 4);
                         this._score += 2;
+                        this.bounceText(0);
                     }
                 }
                 else {
@@ -346,22 +377,30 @@ var HumanMusic;
                     this._malusEmitter.setYSpeed(0, 20);
                     this._malusEmitter.emitParticle();
                     this._score -= 1;
+                    this.bounceText(0);
                 }
             }
             this.computeRemains();
             this.updateSCoreText();
         };
         MainLayer.prototype.computeRemains = function () {
-            this._remains = 0;
+            var remain = 0;
             for (var i = 0; i < this._levelInstruments[this._level]; i++) {
                 for (var j = 0; j < 16; j++) {
                     if (this._element.track[i][j] && !this._pushedPads[i][j]) {
-                        this._remains++;
+                        remain++;
                     }
                 }
             }
             if (this._remainText) {
-                this.updateRemainText();
+                console.log('prout');
+                if (remain != this._remains) {
+                    if (this._textTweens[1]) {
+                        this.bounceText(1);
+                    }
+                    this._remains = remain;
+                    this.updateRemainText();
+                }
             }
         };
         // Update
@@ -421,6 +460,7 @@ var HumanMusic;
                 for (var i = 0; i < this._levelInstruments[this._level]; i++) {
                     if (this._element.track[i][this._current]) {
                         this._soundArray[i].play();
+                        this.bounce(i);
                     }
                     if (this._pushedPads[i][this._current]) {
                         this.correctInputs(i);
@@ -484,14 +524,10 @@ var HumanMusic;
         };
         MainLayer.prototype.createTracksButtons = function () {
             if (HumanMusic.Preferences.instance.score[this._track] < 3) {
-                var continueButton = this.game.add.button(3 * HumanMusic.Global.GAME_WIDTH / 4, 5 * HumanMusic.Global.GAME_HEIGHT / 6, "Navigation", function () {
+                var continueButton = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 2, 5 * HumanMusic.Global.GAME_HEIGHT / 6, "Navigation", function () {
                     this.game.state.start("Play", true, false, this._track);
                 }, this, 0, 0, 0);
                 continueButton.anchor.set(0.5, 0.5);
-                var returnButton = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 4, 5 * HumanMusic.Global.GAME_HEIGHT / 6, "Navigation", function () {
-                    this.game.state.start("Menu");
-                }, this, 1, 1, 1);
-                returnButton.anchor.set(0.5, 0.5);
             }
             else {
                 var returnButton = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 2, 5 * HumanMusic.Global.GAME_HEIGHT / 6, "Navigation", function () {
@@ -593,6 +629,7 @@ var HumanMusic;
         function Menu() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._elements = [];
+            _this._highScores = [];
             _this._positions = [
                 { x: 200, y: 110 },
                 { x: 200, y: HumanMusic.Global.GAME_HEIGHT - 110 },
@@ -609,11 +646,13 @@ var HumanMusic;
         Menu.prototype.createMenu = function () {
             var _loop_3 = function (i) {
                 this_2._elements[i] = this_2.game.add.button(this_2._positions[i].x, this_2._positions[i].y, 'Elements', function () {
-                    if (HumanMusic.Preferences.instance.score[i] < 3) {
-                        this.game.state.start("Play", true, false, i);
-                    }
+                    this.game.state.start("Play", true, false, i);
                 }, this_2, i, i, i);
                 this_2._elements[i].anchor.set(0.5, 0.5);
+                this_2._highScores[i] = this_2.game.add.text(this_2._positions[i].x, this_2._positions[i].y + 85, "HighScore: " + HumanMusic.Preferences.instance.top[i].toString(), null);
+                this_2._highScores[i].anchor.set(0.5, 0.5);
+                this_2._highScores[i].fill = '#777777';
+                this_2._highScores[i].fontSize = 15;
             };
             var this_2 = this;
             for (var i = 0; i < 5; i++) {
@@ -701,9 +740,15 @@ var HumanMusic;
             this.createStartButton();
         };
         Start.prototype.createLogo = function () {
-            var logo = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 4, "Human Music", 70);
+            var logo = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 4, "Human Music", null);
             logo.anchor.set(0.5, 0.5);
+            logo.fontSize = 70;
             logo.fill = '#00FFFF';
+            var moto = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 4 + 50, "Let's bring back harmony, one element at a time", null);
+            moto.anchor.set(0.5, 0.5);
+            moto.fontStyle = 'italic';
+            moto.fontSize = 15;
+            moto.fill = '#00FFFF';
         };
         Start.prototype.createStartButton = function () {
             var start = this.add.button(HumanMusic.Global.GAME_WIDTH / 2, 3 * HumanMusic.Global.GAME_HEIGHT / 4, "Start", function () {

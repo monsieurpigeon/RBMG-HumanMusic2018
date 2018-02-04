@@ -10,6 +10,8 @@ namespace HumanMusic {
         private _tempo: Phaser.Sprite[];
         private _pushedPads: boolean[][];
         public _instrumentTweens: Phaser.Tween[];
+        public _textTweens: Phaser.Tween[];
+        private _title: Phaser.Text;
 
         private _element: Elemental;
         private _level: number;
@@ -24,8 +26,11 @@ namespace HumanMusic {
         private _beginListenCount: number;
         private _soundArray: Phaser.Sound[];
         private _levelInstruments: number[] = [2, 3, 4];
+        private _levelToText: string[] = ["easy", "medium", "hard"];
         private _remainText: Phaser.Text;
         private _scoreText: Phaser.Text;
+        private _highScoreText: Phaser.Text;
+        private _highScore: number;
 
         private _bonusEmitter: Phaser.Particles.Arcade.Emitter;
         private _malusEmitter: Phaser.Particles.Arcade.Emitter;
@@ -34,21 +39,29 @@ namespace HumanMusic {
         public constructor(game: Phaser.Game, parent: PIXI.DisplayObjectContainer, track: number) {
             super(game, parent);
             this._score = 0;
+            this._remains = 0;
             this._track = track;
             this._element = Elements.LIST[track];
-            this._level = Preferences.instance.score[track];
+            this._level = Math.min(Preferences.instance.score[track], 3);
+            this._highScore = Preferences.instance.top[track];
 
             this._pads = [];
             this._tempo = [];
             this._controls = [];
             this._instruments = [];
             this._instrumentTweens = [];
+            this._textTweens = [];
 
             this._current = 15;
             this._beginListenCount = 0;
 
             this.initPushedPads();
             this.initSounds();
+
+            this._remainText = this.game.add.text(1024 - 100 , Global.GAME_HEIGHT / 12,
+                "Remaining: ...", null);
+            this._remainText.anchor.set(1, 0.5);
+            this._remainText.fill = '#00FFFF';
 
             this.createTimer();
             this.computeRemains();
@@ -57,7 +70,7 @@ namespace HumanMusic {
             this.generatePads();
             this.generateControls();
             this.launchListen();
-            if (this._level > 0) {
+            if (this._level > 0 && this._level < 3) {
                 this.populateTrack();
             }
             this._scoreText = this.game.add.text(100 , Global.GAME_HEIGHT / 12,
@@ -65,21 +78,52 @@ namespace HumanMusic {
             this._scoreText.anchor.set(0, 0.5);
             this._scoreText.fill = '#00FFFF';
 
-            this._remainText = this.game.add.text(1024 - 100 , Global.GAME_HEIGHT / 12,
-                "Remains: " + this._remains, null);
-            this._remainText.anchor.set(1, 0.5);
-            this._remainText.fill = '#00FFFF';
+            this._highScoreText = this.game.add.text(100 , Global.GAME_HEIGHT / 12 + 20,
+                "Highscore: " + this._highScore, null);
+            this._highScoreText.anchor.set(0, 0.5);
+            this._highScoreText.fontSize = 12;
+            this._highScoreText.fill = '#006767';
+
+            this._textTweens[0] = this.game.add.tween(this._scoreText.scale).
+            to({ x: 1.2, y: 1.2 }, 100,
+                function (k: number) {
+                    return Math.sin(Math.PI * k);
+                }, false, 0);
+
+
+
+            this._textTweens[1] = this.game.add.tween(this._remainText.scale).
+            to({ x: 1.2, y: 1.2 }, 100,
+                function (k: number) {
+                    return Math.sin(Math.PI * k);
+                }, false, 0);
+
+            this._title = this.game.add.text(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT / 12,
+                this._element.name + " : " + this._levelToText[this._level], null);
+            this._title.anchor.set(0.5, 0.5);
+            this._title.fill = '#00FFFF';
 
             this.initBonusEmitter();
 
         }
 
         private updateRemainText() {
-            this._remainText.text = "Remains: " + this._remains;
+            this._remainText.text = "Remaining: " + this._remains;
         }
 
         private updateSCoreText() {
+            if (this._score > this._highScore) {
+                this._highScore = this._score;
+                Preferences.instance.top[this._track] = this._highScore;
+                this._highScoreText.text = "Highscore: " + this._highScore;
+            }
             this._scoreText.text = "Score: " + this._score;
+        }
+
+        private bounceText(type: number) {
+            if (!this._textTweens[type].isRunning) {
+                this._textTweens[type].start();
+            }
         }
 
         private initBonusEmitter() {
@@ -253,6 +297,7 @@ namespace HumanMusic {
                         this._pads[index][this._current].inputEnabled = false;
                         this._pads[index][this._current].setFrames(4,4,4);
                         this._score += 2;
+                        this.bounceText(0);
                     }
                 } else {
                     this._pads[index][this._current].setFrames(5,5,5);
@@ -263,6 +308,7 @@ namespace HumanMusic {
                     this._malusEmitter.setYSpeed(0, 20);
                     this._malusEmitter.emitParticle();
                     this._score -= 1;
+                    this.bounceText(0);
                 }
             }
             this.computeRemains();
@@ -270,16 +316,24 @@ namespace HumanMusic {
         }
 
         private computeRemains() {
-            this._remains = 0;
+            let remain = 0;
             for (let i = 0; i < this._levelInstruments[this._level]; i++) {
                 for (let j = 0; j < 16; j++) {
                     if (this._element.track[i][j] && !this._pushedPads[i][j]) {
-                        this._remains++;
+
+                        remain++;
                     }
                 }
             }
             if (this._remainText) {
-                this.updateRemainText();
+                console.log('prout');
+                if (remain != this._remains) {
+                    if (this._textTweens[1]) {
+                        this.bounceText(1);
+                    }
+                    this._remains = remain;
+                    this.updateRemainText();
+                }
             }
         }
 
@@ -407,17 +461,11 @@ namespace HumanMusic {
 
         private createTracksButtons() {
             if (Preferences.instance.score[this._track] < 3) {
-                let continueButton = this.game.add.button(3 * Global.GAME_WIDTH / 4 ,5 * Global.GAME_HEIGHT / 6,
+                let continueButton = this.game.add.button(Global.GAME_WIDTH / 2 ,5 * Global.GAME_HEIGHT / 6,
                     "Navigation", function() {
                         this.game.state.start("Play", true, false, this._track);
                     }, this, 0,0,0);
                 continueButton.anchor.set(0.5, 0.5);
-
-                let returnButton = this.game.add.button(Global.GAME_WIDTH / 4 ,5 * Global.GAME_HEIGHT / 6,
-                    "Navigation", function() {
-                        this.game.state.start("Menu");
-                    }, this, 1, 1, 1);
-                returnButton.anchor.set(0.5, 0.5);
             } else {
                 let returnButton = this.game.add.button(Global.GAME_WIDTH / 2 ,5 * Global.GAME_HEIGHT / 6,
                     "Navigation", function() {

@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c6f3b8c-aef0-4f04-8d5b-8edd3805bfa4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/elements.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/game.js" afterPath="$PROJECT_DIR$/js/game.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/game.js.map" afterPath="$PROJECT_DIR$/js/game.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/States/Menu.ts" afterPath="$PROJECT_DIR$/src/States/Menu.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/States/Preload.ts" afterPath="$PROJECT_DIR$/src/States/Preload.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -177,8 +172,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="135" />
-    <option name="y" value="148" />
+    <option name="x" value="90" />
+    <option name="y" value="152" />
     <option name="width" value="1766" />
     <option name="height" value="1137" />
   </component>
@@ -300,15 +295,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1517603075091</updated>
-      <workItem from="1517603076574" duration="53336000" />
+      <workItem from="1517603076574" duration="53559000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53336000" />
+    <option name="totallyTimeSpent" value="53559000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="135" y="148" width="1766" height="1137" extended-state="0" />
+    <frame x="90" y="152" width="1766" height="1137" extended-state="0" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25902578" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

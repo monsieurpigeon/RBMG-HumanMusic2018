@@ -18,7 +18,9 @@ namespace HumanMusic {
         private createMenu() {
             for (let i = 0; i < 5; i++) {
                 this._elements[i] = this.game.add.button(this._positions[i].x, this._positions[i].y, 'Elements',function() {
-                    this.game.state.start("Play", true, false, i);
+                    if (Preferences.instance.score[i] < 3) {
+                        this.game.state.start("Play", true, false, i);
+                    }
                 }, this, i, i, i);
                 this._elements[i].anchor.set(0.5, 0.5);
             }

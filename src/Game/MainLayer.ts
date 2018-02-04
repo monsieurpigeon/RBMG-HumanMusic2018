@@ -123,11 +123,11 @@ namespace HumanMusic {
 
         private initSounds() {
             this._soundArray = [];
-            this._soundArray[0] = this.game.add.audio('kick');
-            this._soundArray[1] = this.game.add.audio('snare');
-            this._soundArray[2] = this.game.add.audio('hihat');
-            this._soundArray[3] = this.game.add.audio('bell');
-            this._soundArray[4] = this.game.add.audio('yeah');
+            this._soundArray[0] = this.game.add.audio(this._element.instruments[0]);
+            this._soundArray[1] = this.game.add.audio(this._element.instruments[1]);
+            this._soundArray[2] = this.game.add.audio(this._element.instruments[2]);
+            this._soundArray[3] = this.game.add.audio(this._element.instruments[3]);
+
             this._soundArray[5] = this.game.add.audio('metronome');
         }
 

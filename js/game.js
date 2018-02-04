@@ -81,14 +81,52 @@ var HumanMusic;
                     [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
                     [false, true, false, true, false, false, false, true, false, true, false, true, false, false, false, true]
                 ],
-                tempo: [280, 250, 200],
-                introduction: "Bonjour"
+                introduction: "Bonjour",
+                instruments: ["kick", "snare", "hihat", "bell"]
+            },
+            {
+                name: "Air",
+                track: [
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                ],
+                introduction: "Bonjour",
+                instruments: ["kick", "snare", "hihat", "bell"]
             },
             {
                 name: "Earth",
-                track: [[true, true]],
-                tempo: [280, 250, 200],
-                introduction: "Salut"
+                track: [
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                ],
+                introduction: "Bonjour",
+                instruments: ["kick", "snare", "hihat", "bell"]
+            },
+            {
+                name: "Water",
+                track: [
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                ],
+                introduction: "Bonjour",
+                instruments: ["kick", "snare", "hihat", "bell"]
+            },
+            {
+                name: "Aether",
+                track: [
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false],
+                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                ],
+                introduction: "Bonjour",
+                instruments: ["kick", "snare", "hihat", "bell"]
             }
         ];
         return Elements;
@@ -180,11 +218,10 @@ var HumanMusic;
         };
         MainLayer.prototype.initSounds = function () {
             this._soundArray = [];
-            this._soundArray[0] = this.game.add.audio('kick');
-            this._soundArray[1] = this.game.add.audio('snare');
-            this._soundArray[2] = this.game.add.audio('hihat');
-            this._soundArray[3] = this.game.add.audio('bell');
-            this._soundArray[4] = this.game.add.audio('yeah');
+            this._soundArray[0] = this.game.add.audio(this._element.instruments[0]);
+            this._soundArray[1] = this.game.add.audio(this._element.instruments[1]);
+            this._soundArray[2] = this.game.add.audio(this._element.instruments[2]);
+            this._soundArray[3] = this.game.add.audio(this._element.instruments[3]);
             this._soundArray[5] = this.game.add.audio('metronome');
         };
         MainLayer.prototype.initPushedPads = function () {
@@ -546,7 +583,9 @@ var HumanMusic;
         Menu.prototype.createMenu = function () {
             var _loop_3 = function (i) {
                 this_2._elements[i] = this_2.game.add.button(this_2._positions[i].x, this_2._positions[i].y, 'Elements', function () {
-                    this.game.state.start("Play", true, false, i);
+                    if (HumanMusic.Preferences.instance.score[i] < 3) {
+                        this.game.state.start("Play", true, false, i);
+                    }
                 }, this_2, i, i, i);
                 this_2._elements[i].anchor.set(0.5, 0.5);
             };

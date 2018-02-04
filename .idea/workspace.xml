@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c6f3b8c-aef0-4f04-8d5b-8edd3805bfa4" name="Default" comment="">
+<<<<<<< Updated upstream
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+=======
+>>>>>>> Stashed changes
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -20,27 +24,42 @@
         <entry file="file://$PROJECT_DIR$/src/Preferences.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
+<<<<<<< Updated upstream
               <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
               <folding>
                 <marker date="1517713120000" expanded="true" signature="21:400" ph="..." />
                 <marker date="1517713120000" expanded="true" signature="52:398" ph="{...}" />
                 <marker date="1517713120000" expanded="true" signature="215:392" ph="{...}" />
                 <marker date="1517713120000" expanded="true" signature="265:339" ph="{...}" />
+=======
+              <caret line="15" column="1" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+              <folding>
+                <marker date="1517704504000" expanded="true" signature="266:340" ph="{...}" />
+>>>>>>> Stashed changes
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Menu.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/States/Menu.ts">
+      <file leaf-file-name="Play.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/States/Play.ts">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state relative-caret-position="525">
               <caret line="35" column="1" lean-forward="false" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
               <folding />
+=======
+            <state relative-caret-position="285">
+              <caret line="21" column="1" lean-forward="false" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+              <folding>
+                <marker date="1517704504000" expanded="true" signature="499:511" ph="{...}" />
+              </folding>
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< Updated upstream
       <file leaf-file-name="Play.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/States/Play.ts">
           <provider selected="true" editor-type-id="text-editor">
@@ -49,10 +68,19 @@
               <folding>
                 <marker date="1517709967000" expanded="true" signature="369:381" ph="{...}" />
               </folding>
+=======
+      <file leaf-file-name="Menu.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/States/Menu.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+              <folding />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< Updated upstream
       <file leaf-file-name="Preload.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/States/Preload.ts">
           <provider selected="true" editor-type-id="text-editor">
@@ -66,50 +94,31 @@
                 <marker date="1517713120000" expanded="true" signature="1441:1492" ph="{...}" />
                 <marker date="1517713120000" expanded="true" signature="1542:1610" ph="{...}" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Start.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/States/Start.ts">
+=======
+      <file leaf-file-name="Elements.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Game/Elements.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+            <state relative-caret-position="405">
+              <caret line="27" column="37" lean-forward="false" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
               <folding />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< Updated upstream
       <file leaf-file-name="App.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
               <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Elements.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Game/Elements.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="6" lean-forward="false" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
-              <folding>
-                <marker date="1517713120000" expanded="true" signature="21:1134" ph="..." />
-                <marker date="1517713120000" expanded="true" signature="55:115" ph="..." />
-                <marker date="1517713120000" expanded="true" signature="1101:1125" ph="[...]" />
-                <marker date="1517713120000" expanded="true" signature="1101:1132" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
+=======
       <file leaf-file-name="MainLayer.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Game/MainLayer.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="374" column="43" lean-forward="false" selection-start-line="374" selection-start-column="43" selection-end-line="374" selection-end-column="43" />
+            <state relative-caret-position="388">
+              <caret line="76" column="31" lean-forward="false" selection-start-line="76" selection-start-column="31" selection-end-line="76" selection-end-column="31" />
+>>>>>>> Stashed changes
               <folding />
             </state>
           </provider>
@@ -118,8 +127,73 @@
       <file leaf-file-name="Disclaimer.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/States/Disclaimer.ts">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+            <state relative-caret-position="315">
+              <caret line="21" column="6" lean-forward="false" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+              <folding>
+                <marker date="1517713120000" expanded="true" signature="21:1134" ph="..." />
+                <marker date="1517713120000" expanded="true" signature="55:115" ph="..." />
+                <marker date="1517713120000" expanded="true" signature="1101:1125" ph="[...]" />
+                <marker date="1517713120000" expanded="true" signature="1101:1132" ph="{...}" />
+              </folding>
+=======
             <state relative-caret-position="195">
               <caret line="13" column="9" lean-forward="false" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+              <folding />
+>>>>>>> Stashed changes
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< Updated upstream
+      <file leaf-file-name="MainLayer.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Game/MainLayer.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="376" column="25" lean-forward="true" selection-start-line="376" selection-start-column="25" selection-end-line="376" selection-end-column="25" />
+=======
+      <file leaf-file-name="Boot.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/States/Boot.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+>>>>>>> Stashed changes
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< Updated upstream
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="5" lean-forward="false" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+=======
+      <file leaf-file-name="App.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/App.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+>>>>>>> Stashed changes
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< Updated upstream
+      <file leaf-file-name="Disclaimer.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/States/Disclaimer.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="9" lean-forward="false" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+=======
+      <file leaf-file-name="Game.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Game.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="27" lean-forward="false" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+>>>>>>> Stashed changes
               <folding />
             </state>
           </provider>
@@ -128,9 +202,22 @@
       <file leaf-file-name="Boot.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/States/Boot.ts">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state relative-caret-position="120">
               <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
               <folding />
+=======
+            <state relative-caret-position="180">
+              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding>
+                <marker date="1517704504000" expanded="true" signature="21:1410" ph="..." />
+                <marker date="1517704504000" expanded="true" signature="69:1408" ph="{...}" />
+                <marker date="1517704504000" expanded="true" signature="139:879" ph="{...}" />
+                <marker date="1517704504000" expanded="true" signature="905:1402" ph="{...}" />
+                <marker date="1517704504000" expanded="true" signature="1215:1266" ph="{...}" />
+                <marker date="1517704504000" expanded="true" signature="1316:1384" ph="{...}" />
+              </folding>
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
@@ -150,6 +237,7 @@
       <find>debug</find>
       <find>victory</find>
       <find>conso</find>
+      <find>instan</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -162,7 +250,6 @@
         <option value="$PROJECT_DIR$/src/App.ts" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/css/app.css" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/States/Boot.ts" />
         <option value="$PROJECT_DIR$/src/Game/Pad.ts" />
         <option value="$PROJECT_DIR$/src/Game/Jukebox.ts" />
@@ -178,6 +265,7 @@
         <option value="$PROJECT_DIR$/src/Preferences.ts" />
         <option value="$PROJECT_DIR$/src/States/Preload.ts" />
         <option value="$PROJECT_DIR$/src/States/Menu.ts" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -191,9 +279,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="90" />
-    <option name="y" value="152" />
-    <option name="width" value="1766" />
+    <option name="x" value="257" />
+    <option name="y" value="108" />
+    <option name="width" value="1828" />
     <option name="height" value="1137" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -319,19 +407,34 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53594000" />
+<<<<<<< Updated upstream
+    <option name="totallyTimeSpent" value="54167000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="305" y="82" width="1828" height="1137" extended-state="0" />
+    <frame x="257" y="108" width="1828" height="1137" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25013834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28278914" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+=======
+    <option name="totallyTimeSpent" value="33550000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="90" y="152" width="1766" height="1137" extended-state="0" />
+    <layout>
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25902578" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+>>>>>>> Stashed changes
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+<<<<<<< Updated upstream
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3395486" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+=======
       <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3395486" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+>>>>>>> Stashed changes
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -429,6 +532,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -614,15 +718,8 @@
         <state relative-caret-position="-19879">
           <caret line="2" column="1460" lean-forward="false" selection-start-line="2" selection-start-column="1460" selection-end-line="2" selection-end-column="1460" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -636,9 +733,53 @@
         <state />
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/src/Game/Jukebox.ts" />
     <entry file="file://$PROJECT_DIR$/src/Game/Pad.ts" />
     <entry file="file://$PROJECT_DIR$/src/States/Winner.ts" />
+    <entry file="file://$PROJECT_DIR$/src/Game/Parameters.ts">
+=======
+    <entry file="file://$PROJECT_DIR$/assets/listen.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/pad.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Jukebox.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Pad.ts">
+>>>>>>> Stashed changes
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="1" lean-forward="true" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/src/States/Start.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/States/Winner.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game/Parameters.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -658,9 +799,9 @@
     <entry file="file://$PROJECT_DIR$/src/States/Play.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="19" column="1" lean-forward="false" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
           <folding>
-            <marker date="1517709967000" expanded="true" signature="369:381" ph="{...}" />
+            <marker date="1517704504000" expanded="true" signature="499:511" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -668,7 +809,7 @@
     <entry file="file://$PROJECT_DIR$/src/States/Boot.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -691,11 +832,205 @@
         <state relative-caret-position="225">
           <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
           <folding>
+            <marker date="1517704504000" expanded="true" signature="266:340" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="27" lean-forward="false" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/States/Play.ts">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="285">
+          <caret line="19" column="1" lean-forward="false" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <marker date="1517709967000" expanded="true" signature="369:381" ph="{...}" />
+          </folding>
+=======
+        <state relative-caret-position="105">
+          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/MainLayer.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="171" column="16" lean-forward="false" selection-start-line="171" selection-start-column="16" selection-end-line="177" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/States/Preload.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="79" lean-forward="false" selection-start-line="14" selection-start-column="79" selection-end-line="14" selection-end-column="79" />
+          <folding>
+            <marker date="1517704504000" expanded="true" signature="21:1410" ph="..." />
+            <marker date="1517704504000" expanded="true" signature="69:1408" ph="{...}" />
+            <marker date="1517704504000" expanded="true" signature="139:879" ph="{...}" />
+            <marker date="1517704504000" expanded="true" signature="905:1402" ph="{...}" />
+            <marker date="1517704504000" expanded="true" signature="1215:1266" ph="{...}" />
+            <marker date="1517704504000" expanded="true" signature="1316:1384" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Elements.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="37" lean-forward="true" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/States/Menu.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="68" lean-forward="false" selection-start-line="8" selection-start-column="68" selection-end-line="8" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.MD">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tsconfig.json" />
+    <entry file="file://$PROJECT_DIR$/tsconfig.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="23" lean-forward="false" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-159">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="20" lean-forward="false" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/phaser.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19879">
+          <caret line="2" column="1460" lean-forward="false" selection-start-line="2" selection-start-column="1460" selection-end-line="2" selection-end-column="1460" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Pad.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Preferences.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="1" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+          <folding>
+            <marker date="1517704504000" expanded="true" signature="266:340" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+          <folding />
+>>>>>>> Stashed changes
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/States/Boot.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+<<<<<<< Updated upstream
+          <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+          <folding />
+=======
+          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+>>>>>>> Stashed changes
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/elements.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/States/Disclaimer.ts">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="195">
+          <caret line="13" column="9" lean-forward="false" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+=======
+        <state relative-caret-position="120">
+          <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Preferences.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+<<<<<<< Updated upstream
+          <folding>
             <marker date="1517713120000" expanded="true" signature="21:400" ph="..." />
             <marker date="1517713120000" expanded="true" signature="52:398" ph="{...}" />
             <marker date="1517713120000" expanded="true" signature="215:392" ph="{...}" />
             <marker date="1517713120000" expanded="true" signature="265:339" ph="{...}" />
           </folding>
+=======
+          <folding />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>
@@ -709,22 +1044,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App.ts">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
         <state relative-caret-position="105">
           <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+=======
+        <state relative-caret-position="405">
+          <caret line="27" column="37" lean-forward="false" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+>>>>>>> Stashed changes
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Game/MainLayer.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="374" column="43" lean-forward="false" selection-start-line="374" selection-start-column="43" selection-end-line="374" selection-end-column="43" />
+        <state relative-caret-position="216">
+          <caret line="376" column="25" lean-forward="true" selection-start-line="376" selection-start-column="25" selection-end-line="376" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/States/Preload.ts">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
         <state relative-caret-position="255">
           <caret line="17" column="55" lean-forward="true" selection-start-line="17" selection-start-column="55" selection-end-line="17" selection-end-column="55" />
           <folding>
@@ -734,12 +1075,24 @@
             <marker date="1517713120000" expanded="true" signature="1131:1628" ph="{...}" />
             <marker date="1517713120000" expanded="true" signature="1441:1492" ph="{...}" />
             <marker date="1517713120000" expanded="true" signature="1542:1610" ph="{...}" />
+=======
+        <state relative-caret-position="180">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <marker date="1517704504000" expanded="true" signature="21:1410" ph="..." />
+            <marker date="1517704504000" expanded="true" signature="69:1408" ph="{...}" />
+            <marker date="1517704504000" expanded="true" signature="139:879" ph="{...}" />
+            <marker date="1517704504000" expanded="true" signature="905:1402" ph="{...}" />
+            <marker date="1517704504000" expanded="true" signature="1215:1266" ph="{...}" />
+            <marker date="1517704504000" expanded="true" signature="1316:1384" ph="{...}" />
+>>>>>>> Stashed changes
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Game/Elements.ts">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
         <state relative-caret-position="315">
           <caret line="21" column="6" lean-forward="false" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
           <folding>
@@ -747,14 +1100,38 @@
             <marker date="1517713120000" expanded="true" signature="55:115" ph="..." />
             <marker date="1517713120000" expanded="true" signature="1101:1125" ph="[...]" />
             <marker date="1517713120000" expanded="true" signature="1101:1132" ph="{...}" />
+=======
+        <state relative-caret-position="285">
+          <caret line="21" column="1" lean-forward="false" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+          <folding>
+            <marker date="1517704504000" expanded="true" signature="499:511" ph="{...}" />
+>>>>>>> Stashed changes
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/States/Menu.ts">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
         <state relative-caret-position="525">
           <caret line="35" column="1" lean-forward="false" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
+=======
+        <state relative-caret-position="195">
+          <caret line="13" column="9" lean-forward="false" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="15">
+          <caret line="1" column="5" lean-forward="false" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+=======
+        <state relative-caret-position="388">
+          <caret line="76" column="31" lean-forward="false" selection-start-line="76" selection-start-column="31" selection-end-line="76" selection-end-column="31" />
+>>>>>>> Stashed changes
           <folding />
         </state>
       </provider>

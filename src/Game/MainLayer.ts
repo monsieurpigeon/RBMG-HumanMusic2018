@@ -371,6 +371,13 @@ namespace HumanMusic {
         }
 
         private createTracksButtons() {
+            if (Preferences.instance.score[this._track] < 3) {
+                let start = this.game.add.button(Global.GAME_WIDTH / 2 ,Global.GAME_HEIGHT / 2,
+                    "DebugButton", function() {
+                        this.game.state.start("Play", true, false, 0);
+                    }, this);
+                start.anchor.set(0.5, 0.5);
+            }
             let start = this.game.add.button(Global.GAME_WIDTH / 2 ,Global.GAME_HEIGHT / 2,
                 "DebugButton", function() {
                     this.game.state.start("Play", true, false, 0);

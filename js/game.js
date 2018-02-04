@@ -515,10 +515,33 @@ var HumanMusic;
     var Menu = /** @class */ (function (_super) {
         __extends(Menu, _super);
         function Menu() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this._elements = [];
+            _this._positions = [
+                { x: 200, y: 110 },
+                { x: 200, y: HumanMusic.Global.GAME_HEIGHT - 110 },
+                { x: HumanMusic.Global.GAME_WIDTH - 200, y: 110 },
+                { x: HumanMusic.Global.GAME_WIDTH - 200, y: HumanMusic.Global.GAME_HEIGHT - 110 },
+                { x: HumanMusic.Global.GAME_WIDTH / 2, y: HumanMusic.Global.GAME_HEIGHT / 2 }
+            ];
+            return _this;
         }
         Menu.prototype.create = function () {
-            this.createTracksButtons();
+            //this.createTracksButtons();
+            this._elements = [];
+            this.createMenu();
+        };
+        Menu.prototype.createMenu = function () {
+            var _loop_3 = function (i) {
+                this_2._elements[i] = this_2.game.add.button(this_2._positions[i].x, this_2._positions[i].y, 'Elements', function () {
+                    this.game.state.start("Play", true, false, i);
+                }, this_2, i, i, i);
+                this_2._elements[i].anchor.set(0.5, 0.5);
+            };
+            var this_2 = this;
+            for (var i = 0; i < 5; i++) {
+                _loop_3(i);
+            }
         };
         Menu.prototype.createTracksButtons = function () {
             var start = this.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2, "DebugButton", function () {
@@ -568,6 +591,7 @@ var HumanMusic;
             this.load.spritesheet('Listen', 'assets/listen.png', 200, 50);
             this.load.spritesheet('Start', 'assets/start.png', 200, 100);
             this.load.spritesheet('Bonus', 'assets/bonus.png', 25, 25);
+            this.load.spritesheet('Elements', 'assets/elements.png', 377, 200);
             // Sounds
             this.load.audio('kick', 'assets/kick.wav');
             this.load.audio('snare', 'assets/snare.wav');

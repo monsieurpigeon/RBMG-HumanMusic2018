@@ -12,6 +12,7 @@ namespace HumanMusic {
         public _instrumentTweens: Phaser.Tween[];
         public _textTweens: Phaser.Tween[];
         private _title: Phaser.Text;
+        private _levelText: string;
 
         private _element: Elemental;
         private _level: number;
@@ -42,8 +43,13 @@ namespace HumanMusic {
             this._remains = 0;
             this._track = track;
             this._element = Elements.LIST[track];
-            this._level = Math.min(Preferences.instance.score[track], 3);
+            this._level = Math.min(Preferences.instance.score[track], 2);
             this._highScore = Preferences.instance.top[track];
+            if (Preferences.instance.score[track] < 2) {
+                this._levelText = this._levelToText[this._level];
+            } else {
+                this._levelText = "Xtrem";
+            }
 
             this._pads = [];
             this._tempo = [];
@@ -70,7 +76,7 @@ namespace HumanMusic {
             this.generatePads();
             this.generateControls();
             this.launchListen();
-            if (this._level > 0 && this._level < 3) {
+            if (this._level > 0 && Preferences.instance.score[this._track] < 3) {
                 this.populateTrack();
             }
             this._scoreText = this.game.add.text(100 , Global.GAME_HEIGHT / 12,
@@ -99,7 +105,7 @@ namespace HumanMusic {
                 }, false, 0);
 
             this._title = this.game.add.text(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT / 12,
-                this._element.name + " : " + this._levelToText[this._level], null);
+                this._element.name + " : " + this._levelText, null);
             this._title.anchor.set(0.5, 0.5);
             this._title.fill = '#00FFFF';
 
@@ -326,7 +332,6 @@ namespace HumanMusic {
                 }
             }
             if (this._remainText) {
-                console.log('prout');
                 if (remain != this._remains) {
                     if (this._textTweens[1]) {
                         this.bounceText(1);

@@ -75,7 +75,7 @@ var HumanMusic;
         }
         Elements.LIST = [
             {
-                name: "Fire",
+                name: "🔥 Fire",
                 track: [
                     [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false],
                     [true, false, false, true, false, false, true, false, false, true, false, false, true, false, false, true],
@@ -86,7 +86,7 @@ var HumanMusic;
                 instruments: ["kick", "snare", "hihat", "bell"]
             },
             {
-                name: "Air",
+                name: "☁️ Air",
                 track: [
                     [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
                     [false, true, false, false, true, false, false, false, true, false, false, true, false, false, false, true],
@@ -97,7 +97,7 @@ var HumanMusic;
                 instruments: ["kick", "snare", "hihat", "bell"]
             },
             {
-                name: "Earth",
+                name: "🌱 Earth",
                 track: [
                     [true, false, false, true, false, false, true, false, false, false, true, false, false, false, true, false],
                     [false, true, false, false, false, true, false, false, false, true, false, false, true, false, true, false],
@@ -108,7 +108,7 @@ var HumanMusic;
                 instruments: ["kick", "snare", "hihat", "bell"]
             },
             {
-                name: "Water",
+                name: "💧 Water",
                 track: [
                     [false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false],
                     [true, false, false, true, false, false, true, false, true, false, false, true, false, false, true, false],
@@ -119,7 +119,7 @@ var HumanMusic;
                 instruments: ["kick", "snare", "hihat", "bell"]
             },
             {
-                name: "Aether",
+                name: "😀 Soul",
                 track: [
                     [false, true, false, false, false, true, false, false, true, false, false, true, false, false, false, true],
                     [true, false, true, false, true, false, false, false, false, true, false, false, true, false, true, false],
@@ -147,8 +147,14 @@ var HumanMusic;
             _this._remains = 0;
             _this._track = track;
             _this._element = HumanMusic.Elements.LIST[track];
-            _this._level = Math.min(HumanMusic.Preferences.instance.score[track], 3);
+            _this._level = Math.min(HumanMusic.Preferences.instance.score[track], 2);
             _this._highScore = HumanMusic.Preferences.instance.top[track];
+            if (HumanMusic.Preferences.instance.score[track] < 2) {
+                _this._levelText = _this._levelToText[_this._level];
+            }
+            else {
+                _this._levelText = "Xtrem";
+            }
             _this._pads = [];
             _this._tempo = [];
             _this._controls = [];
@@ -169,7 +175,7 @@ var HumanMusic;
             _this.generatePads();
             _this.generateControls();
             _this.launchListen();
-            if (_this._level > 0 && _this._level < 3) {
+            if (_this._level > 0 && HumanMusic.Preferences.instance.score[_this._track] < 3) {
                 _this.populateTrack();
             }
             _this._scoreText = _this.game.add.text(100, HumanMusic.Global.GAME_HEIGHT / 12, "Score: " + _this._score, null);
@@ -187,7 +193,7 @@ var HumanMusic;
                 to({ x: 1.2, y: 1.2 }, 100, function (k) {
                 return Math.sin(Math.PI * k);
             }, false, 0);
-            _this._title = _this.game.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 12, _this._element.name + " : " + _this._levelToText[_this._level], null);
+            _this._title = _this.game.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 12, _this._element.name + " : " + _this._levelText, null);
             _this._title.anchor.set(0.5, 0.5);
             _this._title.fill = '#00FFFF';
             _this.initBonusEmitter();
@@ -393,7 +399,6 @@ var HumanMusic;
                 }
             }
             if (this._remainText) {
-                console.log('prout');
                 if (remain != this._remains) {
                     if (this._textTweens[1]) {
                         this.bounceText(1);
@@ -749,6 +754,10 @@ var HumanMusic;
             moto.fontStyle = 'italic';
             moto.fontSize = 15;
             moto.fill = '#00FFFF';
+            var instructions = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT - 50, "Just link what you hear, what you see and what you remember", null);
+            instructions.anchor.set(0.5, 0.5);
+            instructions.fontSize = 14;
+            instructions.fill = '#00FFFF';
         };
         Start.prototype.createStartButton = function () {
             var start = this.add.button(HumanMusic.Global.GAME_WIDTH / 2, 3 * HumanMusic.Global.GAME_HEIGHT / 4, "Start", function () {

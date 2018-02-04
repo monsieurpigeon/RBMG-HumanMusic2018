@@ -19,6 +19,12 @@ namespace HumanMusic {
             moto.fontStyle = 'italic';
             moto.fontSize = 15;
             moto.fill = '#00FFFF';
+
+            let instructions = this.add.text(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT - 50,
+                "Just link what you hear, what you see and what you remember", null);
+            instructions.anchor.set(0.5, 0.5);
+            instructions.fontSize = 14;
+            instructions.fill = '#00FFFF';
         }
 
         private createStartButton() {

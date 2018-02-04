@@ -11,7 +11,7 @@ namespace HumanMusic {
 
         public static LIST: Elemental[] = [
             {
-                name: "Fire",
+                name: "🔥 Fire",
                 track: [
                     [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false],
                     [true, false, false, true, false, false, true, false, false, true, false, false, true, false, false, true],
@@ -22,7 +22,7 @@ namespace HumanMusic {
                 instruments: ["kick", "snare", "hihat", "bell"]
             },
             {
-                name: "Air",
+                name: "☁️ Air",
                 track: [
                     [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
                     [false, true, false, false, true, false, false, false, true, false, false, true, false, false, false, true],
@@ -33,7 +33,7 @@ namespace HumanMusic {
                 instruments: ["kick", "snare", "hihat", "bell"]
             },
             {
-                name: "Earth",
+                name: "🌱 Earth",
                 track: [
                     [true, false, false, true, false, false, true, false, false, false, true, false, false, false, true, false],
                     [false, true, false, false, false, true, false, false, false, true, false, false, true, false, true, false],
@@ -44,7 +44,7 @@ namespace HumanMusic {
                 instruments: ["kick", "snare", "hihat", "bell"]
             },
             {
-                name: "Water",
+                name: "💧 Water",
                 track: [
                     [false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false],
                     [true, false, false, true, false, false, true, false, true, false, false, true, false, false, true, false],
@@ -55,7 +55,7 @@ namespace HumanMusic {
                 instruments: ["kick", "snare", "hihat", "bell"]
             },
             {
-                name: "Aether",
+                name: "😀 Soul",
                 track: [
                     [false, true, false, false, false, true, false, false, true, false, false, true, false, false, false, true],
                     [true, false, true, false, true, false, false, false, false, true, false, false, true, false, true, false],

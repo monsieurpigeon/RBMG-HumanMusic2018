@@ -50,7 +50,7 @@ var HumanMusic;
 (function (HumanMusic) {
     var Preferences = /** @class */ (function () {
         function Preferences() {
-            this.score = [0, -1, -1, -1, -1];
+            this.score = [0, 0, 0, 0, 0];
         }
         Object.defineProperty(Preferences, "instance", {
             get: function () {
@@ -87,10 +87,10 @@ var HumanMusic;
             {
                 name: "Air",
                 track: [
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                    [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
+                    [false, true, false, false, true, false, false, false, true, false, false, true, false, false, false, true],
+                    [true, false, false, true, false, false, true, false, false, false, true, false, true, false, false, false],
+                    [false, true, false, false, true, false, false, true, false, false, false, true, false, false, true, false]
                 ],
                 introduction: "Bonjour",
                 instruments: ["kick", "snare", "hihat", "bell"]
@@ -98,10 +98,10 @@ var HumanMusic;
             {
                 name: "Earth",
                 track: [
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                    [true, false, false, true, false, false, true, false, false, false, true, false, false, false, true, false],
+                    [false, true, false, false, false, true, false, false, false, true, false, false, true, false, true, false],
+                    [false, false, true, false, true, false, false, false, true, false, false, true, false, false, false, false],
+                    [false, true, false, true, false, false, true, false, false, true, false, false, false, false, true, false]
                 ],
                 introduction: "Bonjour",
                 instruments: ["kick", "snare", "hihat", "bell"]
@@ -109,10 +109,10 @@ var HumanMusic;
             {
                 name: "Water",
                 track: [
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                    [false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false],
+                    [true, false, false, true, false, false, true, false, true, false, false, true, false, false, true, false],
+                    [false, false, true, false, true, false, false, true, false, false, true, false, true, false, false, true],
+                    [false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false]
                 ],
                 introduction: "Bonjour",
                 instruments: ["kick", "snare", "hihat", "bell"]
@@ -120,10 +120,10 @@ var HumanMusic;
             {
                 name: "Aether",
                 track: [
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                    [false, true, false, false, false, true, false, false, true, false, false, true, false, false, false, true],
+                    [true, false, true, false, true, false, false, false, false, true, false, false, true, false, true, false],
+                    [false, true, false, false, false, true, false, true, false, false, false, true, false, true, false, false],
+                    [true, false, false, true, false, false, false, false, false, true, false, false, false, false, false, true]
                 ],
                 introduction: "Bonjour",
                 instruments: ["kick", "snare", "hihat", "bell"]
@@ -168,6 +168,7 @@ var HumanMusic;
             _this._remainText.anchor.set(1, 0.5);
             _this._remainText.fill = '#00FFFF';
             _this.initBonusEmitter();
+            console.log(_this._level, _this._element);
             return _this;
         }
         MainLayer.prototype.updateRemainText = function () {

@@ -66,6 +66,7 @@ namespace HumanMusic {
             this._remainText.fill = '#00FFFF';
 
             this.initBonusEmitter();
+            console.log(this._level, this._element);
         }
 
         private updateRemainText() {

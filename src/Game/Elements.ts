@@ -24,10 +24,10 @@ namespace HumanMusic {
             {
                 name: "Air",
                 track: [
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                    [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
+                    [false, true, false, false, true, false, false, false, true, false, false, true, false, false, false, true],
+                    [true, false, false, true, false, false, true, false, false, false, true, false, true, false, false, false],
+                    [false, true, false, false, true, false, false, true, false, false, false, true, false, false, true, false]
                 ],
                 introduction: "Bonjour",
                 instruments: ["kick", "snare", "hihat", "bell"]
@@ -35,10 +35,10 @@ namespace HumanMusic {
             {
                 name: "Earth",
                 track: [
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                    [true, false, false, true, false, false, true, false, false, false, true, false, false, false, true, false],
+                    [false, true, false, false, false, true, false, false, false, true, false, false, true, false, true, false],
+                    [false, false, true, false, true, false, false, false, true, false, false, true, false, false, false, false],
+                    [false, true, false, true, false, false, true, false, false, true, false, false, false, false, true, false]
                 ],
                 introduction: "Bonjour",
                 instruments: ["kick", "snare", "hihat", "bell"]
@@ -46,10 +46,10 @@ namespace HumanMusic {
             {
                 name: "Water",
                 track: [
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                    [false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false],
+                    [true, false, false, true, false, false, true, false, true, false, false, true, false, false, true, false],
+                    [false, false, true, false, true, false, false, true, false, false, true, false, true, false, false, true],
+                    [false, true, false, false, false, true, false, false, false, true, false, false, false, true, false, false]
                 ],
                 introduction: "Bonjour",
                 instruments: ["kick", "snare", "hihat", "bell"]
@@ -57,10 +57,10 @@ namespace HumanMusic {
             {
                 name: "Aether",
                 track: [
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false],
-                    [false, false, false, false, false, false, false, false, false, false, false, false]
+                    [false, true, false, false, false, true, false, false, true, false, false, true, false, false, false, true],
+                    [true, false, true, false, true, false, false, false, false, true, false, false, true, false, true, false],
+                    [false, true, false, false, false, true, false, true, false, false, false, true, false, true, false, false],
+                    [true, false, false, true, false, false, false, false, false, true, false, false, false, false, false, true]
                 ],
                 introduction: "Bonjour",
                 instruments: ["kick", "snare", "hihat", "bell"]

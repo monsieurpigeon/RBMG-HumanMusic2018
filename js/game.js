@@ -420,13 +420,26 @@ var HumanMusic;
             }, this);
         };
         MainLayer.prototype.createTracksButtons = function () {
-            var start = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2, "DebugButton", function () {
-                this.game.state.start("Play", true, false, 0);
-            }, this);
-            start.anchor.set(0.5, 0.5);
+            if (HumanMusic.Preferences.instance.score[this._track] < 3) {
+                var continueButton = this.game.add.button(3 * HumanMusic.Global.GAME_WIDTH / 4, 5 * HumanMusic.Global.GAME_HEIGHT / 6, "Navigation", function () {
+                    this.game.state.start("Play", true, false, this._track);
+                }, this, 0, 0, 0);
+                continueButton.anchor.set(0.5, 0.5);
+                var returnButton = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 4, 5 * HumanMusic.Global.GAME_HEIGHT / 6, "Navigation", function () {
+                    this.game.state.start("Menu");
+                }, this, 1, 1, 1);
+                returnButton.anchor.set(0.5, 0.5);
+            }
+            else {
+                var returnButton = this.game.add.button(HumanMusic.Global.GAME_WIDTH / 2, 5 * HumanMusic.Global.GAME_HEIGHT / 6, "Navigation", function () {
+                    this.game.state.start("Menu");
+                }, this, 1, 1, 1);
+                returnButton.anchor.set(0.5, 0.5);
+            }
         };
         MainLayer.prototype.prepareVictory = function () {
             this._mode = 3 /* VICTORY */;
+            this._controls['listen'].destroy();
             // Lock all buttons
             // Correct all buttons
             this.correctAndLockAllEntries();
@@ -527,7 +540,6 @@ var HumanMusic;
             return _this;
         }
         Menu.prototype.create = function () {
-            //this.createTracksButtons();
             this._elements = [];
             this.createMenu();
         };
@@ -542,12 +554,6 @@ var HumanMusic;
             for (var i = 0; i < 5; i++) {
                 _loop_3(i);
             }
-        };
-        Menu.prototype.createTracksButtons = function () {
-            var start = this.add.button(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2, "DebugButton", function () {
-                this.game.state.start("Play", true, false, 0);
-            }, this);
-            start.anchor.set(0.5, 0.5);
         };
         return Menu;
     }(Phaser.State));
@@ -592,6 +598,7 @@ var HumanMusic;
             this.load.spritesheet('Start', 'assets/start.png', 200, 100);
             this.load.spritesheet('Bonus', 'assets/bonus.png', 25, 25);
             this.load.spritesheet('Elements', 'assets/elements.png', 377, 200);
+            this.load.spritesheet('Navigation', 'assets/navigation.png', 200, 50);
             // Sounds
             this.load.audio('kick', 'assets/kick.wav');
             this.load.audio('snare', 'assets/snare.wav');

@@ -372,21 +372,29 @@ namespace HumanMusic {
 
         private createTracksButtons() {
             if (Preferences.instance.score[this._track] < 3) {
-                let start = this.game.add.button(Global.GAME_WIDTH / 2 ,Global.GAME_HEIGHT / 2,
-                    "DebugButton", function() {
-                        this.game.state.start("Play", true, false, 0);
-                    }, this);
-                start.anchor.set(0.5, 0.5);
+                let continueButton = this.game.add.button(3 * Global.GAME_WIDTH / 4 ,5 * Global.GAME_HEIGHT / 6,
+                    "Navigation", function() {
+                        this.game.state.start("Play", true, false, this._track);
+                    }, this, 0,0,0);
+                continueButton.anchor.set(0.5, 0.5);
+
+                let returnButton = this.game.add.button(Global.GAME_WIDTH / 4 ,5 * Global.GAME_HEIGHT / 6,
+                    "Navigation", function() {
+                        this.game.state.start("Menu");
+                    }, this, 1, 1, 1);
+                returnButton.anchor.set(0.5, 0.5);
+            } else {
+                let returnButton = this.game.add.button(Global.GAME_WIDTH / 2 ,5 * Global.GAME_HEIGHT / 6,
+                    "Navigation", function() {
+                        this.game.state.start("Menu");
+                    }, this, 1, 1, 1);
+                returnButton.anchor.set(0.5, 0.5);
             }
-            let start = this.game.add.button(Global.GAME_WIDTH / 2 ,Global.GAME_HEIGHT / 2,
-                "DebugButton", function() {
-                    this.game.state.start("Play", true, false, 0);
-                }, this);
-            start.anchor.set(0.5, 0.5);
         }
 
         private prepareVictory() {
             this._mode = tempoMode.VICTORY;
+            this._controls['listen'].destroy();
             // Lock all buttons
             // Correct all buttons
             this.correctAndLockAllEntries();

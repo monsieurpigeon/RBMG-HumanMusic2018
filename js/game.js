@@ -754,7 +754,7 @@ var HumanMusic;
             moto.fontStyle = 'italic';
             moto.fontSize = 15;
             moto.fill = '#00FFFF';
-            var instructions = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT - 50, "Just link what you hear, what you see and what you remember", null);
+            var instructions = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT - 50, "Find the way to link what you hear, what you see and what you remember", null);
             instructions.anchor.set(0.5, 0.5);
             instructions.fontSize = 14;
             instructions.fill = '#00FFFF';

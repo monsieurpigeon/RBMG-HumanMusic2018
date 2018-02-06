@@ -149,7 +149,7 @@ var HumanMusic;
             _this._element = HumanMusic.Elements.LIST[track];
             _this._level = Math.min(HumanMusic.Preferences.instance.score[track], 2);
             _this._highScore = HumanMusic.Preferences.instance.top[track];
-            if (HumanMusic.Preferences.instance.score[track] < 2) {
+            if (HumanMusic.Preferences.instance.score[track] < 3) {
                 _this._levelText = _this._levelToText[_this._level];
             }
             else {
@@ -646,8 +646,8 @@ var HumanMusic;
         }
         Menu.prototype.create = function () {
             this._elements = [];
-            this.createMenu();
             this.checkEnd();
+            this.createMenu();
             if (HumanMusic.Preferences.instance.score[4] !== 0) {
                 var logo = this.add.text(HumanMusic.Global.GAME_WIDTH / 2, HumanMusic.Global.GAME_HEIGHT / 2 - 20, "Human Music", null);
                 logo.anchor.set(0.5, 0.5);

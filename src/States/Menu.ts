@@ -13,8 +13,9 @@ namespace HumanMusic {
 
         public create() {
             this._elements = [];
-            this.createMenu();
             this.checkEnd();
+            this.createMenu();
+
 
             if (Preferences.instance.score[4] !== 0) {
                 let logo = this.add.text(Global.GAME_WIDTH / 2 , Global.GAME_HEIGHT / 2 - 20,

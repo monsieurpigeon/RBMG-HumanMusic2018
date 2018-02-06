@@ -45,7 +45,7 @@ namespace HumanMusic {
             this._element = Elements.LIST[track];
             this._level = Math.min(Preferences.instance.score[track], 2);
             this._highScore = Preferences.instance.top[track];
-            if (Preferences.instance.score[track] < 2) {
+            if (Preferences.instance.score[track] < 3) {
                 this._levelText = this._levelToText[this._level];
             } else {
                 this._levelText = "Xtrem";
@@ -299,7 +299,11 @@ namespace HumanMusic {
                         this._bonusEmitter.emitY = this._pads[index][this._current].y;
                         this._bonusEmitter.setXSpeed(-20, 20);
                         this._bonusEmitter.setYSpeed(0, 20);
-                        this._bonusEmitter.emitParticle();
+
+
+                            this._bonusEmitter.emitParticle();
+
+
                         this._pads[index][this._current].inputEnabled = false;
                         this._pads[index][this._current].setFrames(4,4,4);
                         this._score += 2;

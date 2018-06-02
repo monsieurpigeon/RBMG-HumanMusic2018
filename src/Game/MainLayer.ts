@@ -465,6 +465,19 @@ namespace HumanMusic {
                 this.createTracksButtons();
             }, this);
 
+            // Return score to parent website
+            let potential = 2 * this._element.track.reduce((total, instrument) => {
+                return total + instrument.reduce((total2, pad) => {
+                    if (pad) {
+                        return total2 + 1;
+                    } else {
+                        return total2;
+                    }
+                }, 0);
+            }, 0);
+            let result = Math.floor(100 * this._score / potential);
+            parent.postMessage(`gameOver:${+this._track + 1}:${result}` , "*" )
+
 
         }
 

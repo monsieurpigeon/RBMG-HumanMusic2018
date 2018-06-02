@@ -526,6 +526,22 @@ var HumanMusic;
             this.game.time.events.add(1000, function () {
                 this.createTracksButtons();
             }, this);
+            console.log(this._score + " // " + this._track);
+            var potential = 2 * this._element.track.reduce(function (total, instrument) {
+                return total + instrument.reduce(function (total2, pad) {
+                    if (pad) {
+                        return total2 + 1;
+                    }
+                    else {
+                        return total2;
+                    }
+                }, 0);
+            }, 0);
+            console.log(this._element);
+            console.log(potential);
+            var result = Math.floor(100 * this._score / potential);
+            console.log(result);
+            console.log("gameOver:" + (+this._track + 1) + ":" + result, "*");
         };
         MainLayer.prototype.createTracksButtons = function () {
             if (HumanMusic.Preferences.instance.score[this._track] < 3) {
